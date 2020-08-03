@@ -15,6 +15,12 @@ const schema = new mongoose.Schema({
   },
   passwordHash: {
     type: String
+  },
+  userType: {
+    type: String,
+    required: true,
+    enum: ['Fan', 'Artist']
+    // add default: "Fan" ?
   }
 });
 
