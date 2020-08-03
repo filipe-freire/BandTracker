@@ -12,9 +12,11 @@ const schema = new mongoose.Schema({
     required: true,
     lowercase: true,
     trim: true
+    // ADD UNIQUE
   },
   passwordHash: {
-    type: String
+    type: String,
+    required: true
   },
   userType: {
     type: String,
@@ -25,6 +27,9 @@ const schema = new mongoose.Schema({
   profilePicture: {
     type: String,
     required: [true, 'A profile picture is required.']
+  },
+  trackBands: {
+    type: String
   }
 });
 

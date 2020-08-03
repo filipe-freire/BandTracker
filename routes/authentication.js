@@ -21,7 +21,7 @@ router.get('/sign-up', (req, res, next) => {
 });
 
 router.post('/sign-up', upload.single('profilePicture'), (req, res, next) => {
-  const { name, email, password, userType } = req.body;
+  const { name, email, password, userType, trackBands } = req.body;
   const profilePicture = req.file.path;
 
   bcryptjs
@@ -32,7 +32,8 @@ router.post('/sign-up', upload.single('profilePicture'), (req, res, next) => {
         email,
         passwordHash: hash,
         userType,
-        profilePicture
+        profilePicture,
+        trackBands
       });
     })
     .then(user => {
