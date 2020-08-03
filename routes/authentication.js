@@ -2,6 +2,15 @@
 
 const { Router } = require('express');
 
+const multer = require('multer');
+const cloudinary = require('cloudinary');
+const multerStorageCloudinary = require('multer-storage-cloudinary');
+
+const storage = new multerStorageCloudinary.CloudinaryStorage({
+  cloudinary: cloudinary.v2
+});
+const upload = multer({ storage });
+
 const bcryptjs = require('bcryptjs');
 const User = require('./../models/user');
 
@@ -11,8 +20,10 @@ router.get('/sign-up', (req, res, next) => {
   res.render('sign-up');
 });
 
-router.post('/sign-up', (req, res, next) => {
+router.post('/sign-up', upload.single('profilePicture'), (req, res, next) => {
   const { name, email, password, userType } = req.body;
+  const profilePicture = req.file.path;
+
   bcryptjs
     .hash(password, 10)
     .then(hash => {
@@ -20,7 +31,8 @@ router.post('/sign-up', (req, res, next) => {
         name,
         email,
         passwordHash: hash,
-        userType
+        userType,
+        profilePicture
       });
     })
     .then(user => {

@@ -1,4 +1,4 @@
-<form action="/authentication/sign-up" method="POST">
+<form action="/authentication/sign-up" method="POST" enctype="multipart/form-data">
 
   <label for="input-name">Name</label>
   <input type="text" id="input-name" name="name" placeholder="Your Name" />
@@ -14,6 +14,10 @@
     <option value="Fan" selected>Fan</option>
     <option value="Artist">Artist</option>
   </select>
+
+  <!-- PROFILE PICTURE UPLOAD -->
+  <label for="input-profilePicture">Submit Picture</label>
+  <input type="file" name="profilePicture" id="input-profilePicture">
 
   <button>Sign Up</button>
 </form>

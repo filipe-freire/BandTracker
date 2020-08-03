@@ -21,6 +21,10 @@ const schema = new mongoose.Schema({
     required: true,
     enum: ['Fan', 'Artist']
     // add default: "Fan" ?
+  },
+  profilePicture: {
+    type: String,
+    required: [true, 'A profile picture is required.']
   }
 });
 
