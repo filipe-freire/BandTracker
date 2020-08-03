@@ -44,7 +44,7 @@ router.get('/artists', (req, res) => {
       }
     })
     .then(result => {
-      console.log(result.data);
+      console.log(result.data); // only logs the output so far, doesn't display it to the page - FIX
     });
 });
 
