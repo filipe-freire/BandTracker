@@ -1,0 +1,23 @@
+<h1>BandsInTown API Page</h1>
+
+<h1>{{ searchResult.artist.name }}'s Page</h1><br>
+<img src="{{searchResult.artist.image_url}}" alt="" style="width: 300px;">
+
+<h3> Followers on BandsInTown: <span class="bold">{{ searchResult.artist.tracker_count }}</span></h3>
+
+<h2>Upcoming Events: {{searchResult.artist.upcoming_event_count }}</h2>
+
+
+{{!-- INSERT TOURS BELOW IF THEY EXIST --}}
+
+{{#if searchResult.artist.upcoming_event_count}}
+
+{{!-- REFERENCES EVENT OBJECT --}}
+
+<h4> Next Concerts: {{ searchResult.datetime }}</h4> 
+{{!-- <h5> Date: {{ searchResult.datetime }}</h5> --}}
+<h5> Where: {{searchResult.venue.location }} | {{searchResult.venue.name}}</h5> 
+
+{{else}}
+<h1>No tours available</h1>
+{{/if}}

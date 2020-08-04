@@ -10,8 +10,11 @@
   <body>
     <nav>
       <a href="/">Home</a>
+      <a href="/show-events">Show Events</a>
       {{#if user}}
         <a href="/private">{{user.name}}'s Profile</a>
+        <a href="/favourites-display">My Favourite Artists</a><br>
+        <a href="/favourites-creation">Add Favourite Band</a>
         <form action="/authentication/sign-out" method="POST">
           <button>Sign Out</button>
         </form>
@@ -20,17 +23,12 @@
         <a href="/authentication/sign-up">Sign Up</a>
       {{/if}}
     </nav>
-     {{#if user}} 
        {{{body}}} 
-       </br>
-        <a href="/favourites-display">My Favourite Artists</a><br>
-        <a href="/favourites-creation">Add Favourite Band</a>
-       
-       {{else}}
-       {{{body}}}
-      {{/if}}
-  
-    
+       <footer>
+         <p>
+           2020 | BandTracker
+         </p>
+       </footer>
     <script src="/scripts/script.js"></script>
   </body>
 </html>

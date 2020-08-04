@@ -14,6 +14,15 @@ $grey: hsla(0, 0, 75%, 0.5);
   font-weight: bold;
 }
 
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  p {
+    width: 200px;
+  }
+}
+
 body {
   max-width: 52em;
   padding: 0 1em;
@@ -29,6 +38,9 @@ a {
 }
 
 nav {
+  background-color: #000;
+  color: #fff;
+  padding: 0 2em;
   display: flex;
   a,
   button {

@@ -4,6 +4,13 @@
 .bold {
   font-weight: bold; }
 
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+  footer p {
+    width: 200px; }
+
 body {
   max-width: 52em;
   padding: 0 1em;
@@ -17,6 +24,9 @@ a {
   text-decoration: none; }
 
 nav {
+  background-color: #000;
+  color: #fff;
+  padding: 0 2em;
   display: flex; }
   nav a,
   nav button {
