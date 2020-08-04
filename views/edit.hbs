@@ -1,0 +1,34 @@
+<form method="POST" enctype="multipart/form-data">
+
+  <label for="input-name">Name</label>
+  <input type="text" id="input-name" name="name" placeholder="Your Name" value="{{ user.name }}" />
+  
+  <label for="input-email">Email</label>
+  <input type="email" id="input-email" name="email" placeholder="Your Email" value="{{ user.email }}" />
+  
+  {{!-- USERTYPE SELECTION HERE --}}
+  {{!-- <label for="select-userType">Type of User</label>
+  <select id="select-userType" name="userType">
+    <option value="Fan" selected>Fan</option>
+    <option value="Artist">Artist</option>
+  </select> --}}
+
+  <!-- PROFILE PICTURE UPDATE -->
+  <img src="{{user.profilePicture}}" alt="profile-pic" style="width: 200px">
+  <label for="input-profilePicture">Update Picture</label>
+  <input type="file" name="profilePicture" id="input-profilePicture">
+
+  <!-- FAVOURITE BANDS ARRAY UPDATE -->
+  <label for="input-trackBands">What band/artist do you want to track?</label>
+  <input type="text" name="trackBands" id="input-trackBands" value="{{user.trackBands}}">
+
+
+  <button>Edit Profile</button>
+</form>
+
+
+
+
+
+
+

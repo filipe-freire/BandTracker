@@ -26,7 +26,8 @@ app.use(
   sassMiddleware({
     src: join(__dirname, 'public'),
     dest: join(__dirname, 'public'),
-    outputStyle: process.env.NODE_ENV === 'development' ? 'nested' : 'compressed',
+    outputStyle:
+      process.env.NODE_ENV === 'development' ? 'nested' : 'compressed',
     force: process.env.NODE_ENV === 'development',
     sourceMap: true
   })
@@ -48,7 +49,7 @@ app.use(
     },
     store: new (connectMongo(expressSession))({
       mongooseConnection: mongoose.connection,
-      ttl: 60 * 60 * 24
+      ttl: 1000 * 15 * 60 * 60 * 24
     })
   })
 );
