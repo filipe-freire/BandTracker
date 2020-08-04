@@ -26,7 +26,8 @@ const router = new Router();
 
 // token for Confirmation Email
 const generateRandomToken = length => {
-  const characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const characters =
+    '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
   let token = '';
   for (let i = 0; i < length; i++) {
     token += characters[Math.floor(Math.random() * characters.length)];
@@ -68,19 +69,25 @@ router.post('/sign-up', upload.single('profilePicture'), (req, res, next) => {
           from: process.env.NODEMAILER_EMAIL,
           to: user.email,
           subject: 'Click the link to activate your account!',
-          html: `
-          <html>
-                    <head>
-                      <style>
-                        body {}
-                        a {
-                        background-color: skyblue;
-                      </style>
-                    </head>
-                    <body>
-                    <a href="${confirmationUrl}"> Link to confirm email </a>
-                    </body>
-                  </html>
+          html: `<html>  
+          <head>
+          <title>Welcome to BandTracker</title>  
+          <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">  
+          </head>  
+          <style>  
+          body  {     font-family:arial;     font-size: 9pt;   }  
+          .email-nameprice  {    font-family:arial;    font-size: 9pt;   }
+           </style>
+          <body bgcolor="#FFFFFF" text="#000000">  
+          <h1> Welcome to BandTracker, ${user.name}! </h1>
+          <h2> You are one click away from awesomeness! </h2>
+          <p>Thank you for creating an account with BandTracker <p>
+          <p>Creating an account allows you to follow your favorite bands and check their tour dates also check all the concerts happening around you.</p>    
+          <p>To confirm your email address, click here: </p>
+          <a href="${confirmationUrl}"> Confirm email </a>
+          <p> And become the most informed fan! </p>
+          </body>
+          </html>
                 `
         })
         .then(result => {
@@ -99,7 +106,11 @@ router.post('/sign-up', upload.single('profilePicture'), (req, res, next) => {
 router.get('/confirm-email', (req, res, next) => {
   const token = req.query.token;
   console.log(token);
-  User.findOneAndUpdate({ confirmationToken: token }, { status: 'active' }, { new: true })
+  User.findOneAndUpdate(
+    { confirmationToken: token },
+    { status: 'active' },
+    { new: true }
+  )
     .then(user => {
       console.log(user);
       res.render('confirmation', { user }); //render confirmation page
