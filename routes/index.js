@@ -125,11 +125,14 @@ router.get('/artist-search', (req, res) => {
 // PREDICTHQ API - GET INFO OF ONLY CONCERTS & TOUR DATES
 router.get('/show-events', (req, res) => {
   axios
-    .get('https://api.predicthq.com/v1/events/?category=concerts&limit=50', {
-      headers: {
-        Authorization: 'Bearer ' + process.env.PREDICTHQ_ACCESS_TOKEN //the token given by PredictHQ
+    .get(
+      'https://api.predicthq.com/v1/events/?category=concerts&limit=50&active.gte=2020-08-04&active.lte=2020-12-30',
+      {
+        headers: {
+          Authorization: 'Bearer ' + process.env.PREDICTHQ_ACCESS_TOKEN //the token given by PredictHQ
+        }
       }
-    })
+    )
     .then(results => {
       console.log(results.data.results); // only logs the output so far, doesn't display it to the page - FIX
       res.render('show-events', { searchResults: results.data.results });

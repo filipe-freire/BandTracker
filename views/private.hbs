@@ -15,8 +15,20 @@
 <br />
 {{!-- <span><strong>Type of User</strong>: {{user.userType}}</span>
 <br /> --}}
-<span><strong>Bands Being Tracked</strong>: {{user.trackBands}}</span>
 
+
+<span><strong>Bands Being Tracked</strong>: 
+
+{{#each user.trackBands}}
+  <a href="/artist-search?term={{this}}">{{this}}</a>
+{{/each}}
+
+</span><br>
+
+
+
+<a href="/favourites-creation">Add Favourite Band</a><br>
+<a href="/favourites-display">My Favourite Artists</a>
 </br>
 <a href="/edit">Edit Profile</a>
 
