@@ -63,4 +63,11 @@ textarea {
   min-height: 8em;
   resize: vertical; }
 
+input:invalid:required {
+  border: 2px solid red; }
+
+input:valid {
+  border: 2px solid black;
+  background-color: #f6fff6; }
+
 /*# sourceMappingURL=style.css.map */
