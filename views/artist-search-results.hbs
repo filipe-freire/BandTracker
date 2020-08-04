@@ -1,6 +1,9 @@
 {{#each artists }}
 <img src="{{ images.1.url }}" alt="" style="width: 500px;">
 <h1> {{ name }} </h1>
+<h3> {{ followers.total }} </h3>
+<h3> {{ genres }} </h3>
+<h4> {{ href }}</h4>
+<a href="{{ href }}">Summary</a>
 <a href="/albums/{{id}}">View Albums</a> <!-- route/view Not Added yet! -->
 {{/each }}
-

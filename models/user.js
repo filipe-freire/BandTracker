@@ -19,12 +19,12 @@ const schema = new mongoose.Schema(
       type: String,
       required: true
     },
-    userType: {
-      type: String,
-      required: true,
-      enum: ['Fan', 'Artist']
-      // add default: "Fan" ?
-    },
+    // userType: {
+    //   type: String,
+    //   required: true,
+    //   enum: ['Fan', 'Artist']
+    //   // add default: "Fan" ?
+    // },
     profilePicture: {
       type: String,
       required: [true, 'A profile picture is required.']

@@ -40,7 +40,7 @@ router.get('/sign-up', (req, res, next) => {
 });
 
 router.post('/sign-up', upload.single('profilePicture'), (req, res, next) => {
-  const { name, email, password, userType, trackBands } = req.body;
+  const { name, email, password, /*userType,*/ trackBands } = req.body;
   const profilePicture = req.file.path;
 
   // Confirmation Email
@@ -54,7 +54,7 @@ router.post('/sign-up', upload.single('profilePicture'), (req, res, next) => {
         name,
         email,
         passwordHash: hash,
-        userType,
+        // userType,  USERTYPE CREATION IF NEEDED
         profilePicture,
         trackBands,
         confirmationToken: confirmationToken
