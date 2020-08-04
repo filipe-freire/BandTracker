@@ -28,7 +28,13 @@
         {{#if user}}  
         <h3>Bands you are following!</h3>
       {{#each user.trackBands}}
-        <a href="/artist-search?term={{this}}">{{this}}</a>
+      <ul>
+
+        <li>
+         <a href="/artist-search?term={{this}}">{{this}}</a> 
+        </li>
+
+       </ul>
         {{/each}}
           {{/if}}
        <footer>
