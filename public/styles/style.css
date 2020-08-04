@@ -4,6 +4,12 @@
 .bold {
   font-weight: bold; }
 
+footer {
+  display: flex;
+  padding-bottom: 1em; }
+  footer p {
+    margin: 0 auto; }
+
 body {
   max-width: 52em;
   padding: 0 1em;
