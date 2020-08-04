@@ -149,18 +149,15 @@ router.get('/artist-search', (req, res) => {
 
 // PREDICTHQ API - GET INFO OF ONLY CONCERTS & TOUR DATES
 router.get('/show-events', (req, res) => {
+  const term = req.query.term;
+
   axios
     .get(
-      'https://api.predicthq.com/v1/events/?category=concerts&limit=5&active.gte=2020-08-04&active.lte=2020-12-30',
-      {
-        headers: {
-          Authorization: 'Bearer ' + process.env.PREDICTHQ_ACCESS_TOKEN //the token given by PredictHQ
-        }
-      }
+      `https://rest.bandsintown.com/artists/Kendrick%20Lamar/events?app_id=${bandsInTownKey}&date=upcoming`
     )
     .then(results => {
-      console.log(results.data.results);
-      res.render('show-events', { searchResults: results.data.results });
+      console.log(results.data[0]);
+      res.render('show-events', { searchResults: results.data[0] });
     });
 });
 
