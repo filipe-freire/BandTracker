@@ -6,6 +6,7 @@ const routeGuard = require('./../middleware/route-guard');
 // Install/Require additional dependencies
 const axios = require('axios');
 const SpotifyWebApi = require('spotify-web-api-node');
+const Favourites = require('./../models/favourites');
 
 // Integration with the spotify app in order to get artist images
 // brief description & genres
@@ -19,6 +20,30 @@ spotifyApi
   .then(data => spotifyApi.setAccessToken(data.body['access_token']))
   .catch(error => console.log('Something went wrong when retrieving an access token', error));
 
+// START TESTING FAVOURITES
+
+router.get('/favourites-creation', routeGuard, (req, res) => {
+  res.render('favourites-creation');
+});
+
+router.post('/favourites-creation', routeGuard, (req, res, next) => {
+  const { artistName } = req.body;
+
+  Favourites.create({
+    artistName,
+    creator: req.session.user
+  })
+    .then(res.redirect('/favourites-display'))
+    .catch(error => {
+      next(error);
+    });
+});
+
+router.get('/favourites-display', routeGuard, (req, res) => {
+  res.render('favourites-display');
+});
+
+// END TESTING FAVOURITES
 // Spotify get artist results route/view
 router.get('/artist-search', (req, res) => {
   const term = req.query.term;
@@ -38,11 +63,14 @@ router.get('/artist-search', (req, res) => {
 // PREDICTHQ API - GET INFO OF ONLY CONCERTS & TOUR DATES
 router.get('/show-events', (req, res) => {
   axios
-    .get('https://api.predicthq.com/v1/events/?category=concerts&limit=10', {
-      headers: {
-        Authorization: 'Bearer ' + process.env.PREDICTHQ_ACCESS_TOKEN //the token given by PredictHQ
+    .get(
+      'https://api.predicthq.com/v1/events/?category=concerts&limit=5&active.gte=2020-08-04&active.lte=2020-12-30',
+      {
+        headers: {
+          Authorization: 'Bearer ' + process.env.PREDICTHQ_ACCESS_TOKEN //the token given by PredictHQ
+        }
       }
-    })
+    )
     .then(results => {
       console.log(results.data.results); // only logs the output so far, doesn't display it to the page - FIX
       res.render('show-events', { searchResults: results.data.results });

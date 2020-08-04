@@ -1,9 +1,12 @@
 {{#each artists }}
 <img src="{{ images.1.url }}" alt="" style="width: 500px;">
 <h1> {{ name }} </h1>
-<h3> {{ followers.total }} </h3>
-<h3> {{ genres }} </h3>
-<h4> {{ href }}</h4>
+<h3> Total Number of Followers on Spotify: </h3>
+<div class="followers">
+  <p>{{ followers.total }}</p>
+</div>
+<h3>Genres Type: </h3> 
+<p class="genres"> {{ genres }} </p>
 <a href="{{ href }}">Summary</a>
-<a href="/albums/{{id}}">View Albums</a> <!-- route/view Not Added yet! -->
+<a href="/{{ name }}/profile">View Profile</a> <br> <!-- route/view Not Added yet! -->
 {{/each }}
