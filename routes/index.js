@@ -14,6 +14,7 @@ const spotifyApi = new SpotifyWebApi({
   clientId: process.env.CLIENT_ID, // don't forget to put api keys in .env file
   clientSecret: process.env.CLIENT_SECRET
 });
+const bandsInTownKey = process.env.BANDSINTOWN_KEY;
 const multer = require('multer');
 const cloudinary = require('cloudinary');
 const multerStorageCloudinary = require('multer-storage-cloudinary');
@@ -32,9 +33,7 @@ spotifyApi
 
 router.get('/bands-in-town', (req, res, next) => {
   axios
-    .get(
-      'https://rest.bandsintown.com/artists/Kendrick%20Lamar?app_id=cce1834ed513c9f6cb18b88b91e15115'
-    )
+    .get(`https://rest.bandsintown.com/artists/Kendrick%20Lamar?app_id=${bandsInTownKey}`)
     .then(results => {
       console.log(results.data);
       res.render('bands-in-town', { searchResult: results.data });
@@ -47,7 +46,7 @@ router.get('/bands-in-town', (req, res, next) => {
 router.get('/bands-in-town/events', (req, res, next) => {
   axios
     .get(
-      'https://rest.bandsintown.com/artists/Kendrick%20Lamar/events?app_id=cce1834ed513c9f6cb18b88b91e15115&date=upcoming'
+      `https://rest.bandsintown.com/artists/Kendrick%20Lamar/events?app_id=${bandsInTownKey}&date=upcoming`
     )
     .then(results => {
       console.log(results.data[0]);
