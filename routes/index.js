@@ -26,9 +26,7 @@ const upload = multer({ storage });
 spotifyApi
   .clientCredentialsGrant()
   .then(data => spotifyApi.setAccessToken(data.body['access_token']))
-  .catch(error =>
-    console.log('Something went wrong when retrieving an access token', error)
-  );
+  .catch(error => console.log('Something went wrong when retrieving an access token', error));
 
 // ----------- START TESTING FAVOURITES -------------
 
@@ -65,18 +63,21 @@ router.get('/favourites-display', routeGuard, (req, res, next) => {
 
 // -------- START SINGLE ARTIST PAGE ------------
 
-router.get('/artist/:name', routeGuard, (req, res, next) => {
-  Favourites.find()
+router.get('/artist/:id', routeGuard, (req, res, next) => {
+  const id = req.params.id;
+  console.log(id);
+
+  spotifyApi
+    .getArtist(id)
     .then(data => {
-      console.log(data);
-      res.render('favourites-display', { favourite: data });
+      console.log('The received data from the API: ', data.body);
+
+      res.render('artist-page', { artist: data.body });
     })
-    .catch(error => {
-      next(error);
-    });
+    .catch(err => console.log('The error while searching artists occurred: ', err));
 });
 
-// -------- START SINGLE ARTIST PAGE ------------
+// -------- ENDING OF SINGLE ARTIST PAGE ------------
 
 // Spotify get artist results route/view
 router.get('/artist-search', (req, res) => {
@@ -89,9 +90,7 @@ router.get('/artist-search', (req, res) => {
 
       res.render('artist-search-results', { artists: data.body.artists.items });
     })
-    .catch(err =>
-      console.log('The error while searching artists occurred: ', err)
-    );
+    .catch(err => console.log('The error while searching artists occurred: ', err));
 });
 
 // PREDICTHQ API - GET INFO OF ONLY CONCERTS & TOUR DATES
@@ -124,26 +123,21 @@ router.get('/edit', routeGuard, (req, res, next) => {
   res.render('edit');
 });
 
-router.post(
-  '/edit',
-  upload.single('profilePicture'),
-  routeGuard,
-  (req, res, next) => {
-    const id = req.session.user;
+router.post('/edit', upload.single('profilePicture'), routeGuard, (req, res, next) => {
+  const id = req.session.user;
 
-    const { name, email, trackBands } = req.body;
-    const profilePicture = req.file.path;
+  const { name, email, trackBands } = req.body;
+  const profilePicture = req.file.path;
 
-    User.findByIdAndUpdate(id, { name, email, profilePicture, trackBands })
-      .then(() => {
-        res.redirect('/private');
-      })
-      .catch(error => {
-        console.log(error);
-        next(error);
-      });
-  }
-);
+  User.findByIdAndUpdate(id, { name, email, profilePicture, trackBands })
+    .then(() => {
+      res.redirect('/private');
+    })
+    .catch(error => {
+      console.log(error);
+      next(error);
+    });
+});
 
 router.post('/delete', routeGuard, (req, res, next) => {
   const id = req.session.user;

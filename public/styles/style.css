@@ -1,6 +1,9 @@
 *, *:before, *:after {
   box-sizing: border-box; }
 
+.bold {
+  font-weight: bold; }
+
 body {
   max-width: 52em;
   padding: 0 1em;
