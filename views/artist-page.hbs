@@ -1,8 +1,11 @@
-<h1>{{ artist.name }}'s Page</h1><br>
-<img src="{{artist.images.0.url}}" alt="" style="width: 300px;">
+<h1>{{ artist.artist.name }}'s Page</h1><br>
+<img src="{{artist.artist.images.0.url}}" alt="" style="width: 300px;">
 
-<h3> Total Number of Followers on Spotify: <span class="bold">{{ artist.followers.total }}</span></h3>
+<h3> Total Number of Followers on Spotify: <span class="bold">{{ artist.artist.followers.total }}</span></h3>
 
+<h2>Genres: {{artist.artist.genres }}</h2>
 
+<h4> Next Tours: {{artist.artistEvents.name }}</h4>
 
-<h2>Genres: {{artist.genres }}</h2>
+{{!-- INSERT TOURS BELOW IF THEY EXIST --}}
+

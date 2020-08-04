@@ -66,18 +66,40 @@ router.get('/favourites-display', routeGuard, (req, res, next) => {
 router.get('/artist/:id', routeGuard, (req, res, next) => {
   const id = req.params.id;
   console.log(id);
-
+  let spotifyData;
   spotifyApi
     .getArtist(id)
     .then(data => {
-      console.log('The received data from the API: ', data.body);
-
-      res.render('artist-page', { artist: data.body });
+      //console.log('The received data from the API: ', data.body);
+      spotifyData = data;
+      return axios.get(
+        'https://api.predicthq.com/v1/events/?category=concerts&limit=5&active.gte=2020-08-04&active.lte=2020-12-30',
+        {
+          headers: {
+            Authorization: 'Bearer ' + process.env.PREDICTHQ_ACCESS_TOKEN //the token given by PredictHQ
+          }
+        }
+      );
+      //call the api with all the events
+    })
+    .then(response => {
+      const events = response.data.results;
+      const artistEvents = events.find(event => {
+        if (event.title == spotifyData.body.name) {
+          return event;
+        }
+      });
+      console.log(artistEvents);
+      const artist = {
+        artist: spotifyData.body,
+        artistEvents
+      };
+      res.render('artist-page', { artist });
     })
     .catch(err => console.log('The error while searching artists occurred: ', err));
 });
 
-// -------- ENDING OF SINGLE ARTIST PAGE ------------
+// -------- ENDING SINGLE ARTIST PAGE ------------
 
 // Spotify get artist results route/view
 router.get('/artist-search', (req, res) => {
@@ -96,14 +118,11 @@ router.get('/artist-search', (req, res) => {
 // PREDICTHQ API - GET INFO OF ONLY CONCERTS & TOUR DATES
 router.get('/show-events', (req, res) => {
   axios
-    .get(
-      'https://api.predicthq.com/v1/events/?category=concerts&limit=5&active.gte=2020-08-04&active.lte=2020-12-30',
-      {
-        headers: {
-          Authorization: 'Bearer ' + process.env.PREDICTHQ_ACCESS_TOKEN //the token given by PredictHQ
-        }
+    .get('https://api.predicthq.com/v1/events/?category=concerts&limit=50', {
+      headers: {
+        Authorization: 'Bearer ' + process.env.PREDICTHQ_ACCESS_TOKEN //the token given by PredictHQ
       }
-    )
+    })
     .then(results => {
       console.log(results.data.results); // only logs the output so far, doesn't display it to the page - FIX
       res.render('show-events', { searchResults: results.data.results });
