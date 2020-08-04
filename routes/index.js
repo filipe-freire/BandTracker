@@ -151,7 +151,7 @@ router.get('/artist-search', (req, res) => {
 router.get('/show-events', (req, res) => {
   axios
     .get(
-      'https://api.predicthq.com/v1/events/?category=concerts&limit=50&active.gte=2020-08-04&active.lte=2020-12-30',
+      'https://api.predicthq.com/v1/events/?category=concerts&limit=5&active.gte=2020-08-04&active.lte=2020-12-30',
       {
         headers: {
           Authorization: 'Bearer ' + process.env.PREDICTHQ_ACCESS_TOKEN //the token given by PredictHQ
