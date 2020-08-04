@@ -1,4 +1,12 @@
+{{#if searchResults.length}}
+
 <br>
-<img src="{{ searchResults.artist.image_url }}" alt=" {{ searchResults.artist.name }}" style="width: 300px;">
-<h1> {{ searchResults.artist.name }} </h1>
-<h2> {{ searchResults.venue.location }} | {{ date searchResults.datetime "DD/MM/YYYY,HH:mm"}} </h2>
+<img src="{{ searchResults.0.artist.image_url }}" alt=" {{ searchResults.0.artist.name }}" style="width: 300px;">
+<h1> {{ searchResults.0.artist.name }} </h1>
+<h2> {{ searchResults.0.venue.location }} | {{ date searchResults.0.datetime "DD/MM/YYYY,HH:mm"}} </h2>
+
+{{else}}
+
+<h1>No future concerts found</h1>
+
+{{/if }}

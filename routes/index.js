@@ -150,14 +150,15 @@ router.get('/artist-search', (req, res) => {
 // PREDICTHQ API - GET INFO OF ONLY CONCERTS & TOUR DATES
 router.get('/show-events', (req, res) => {
   const term = req.query.term;
+  const normalizedTerm = term.split(' ').join('%20');
 
   axios
     .get(
-      `https://rest.bandsintown.com/artists/Kendrick%20Lamar/events?app_id=${bandsInTownKey}&date=upcoming`
+      `https://rest.bandsintown.com/artists/${normalizedTerm}/events?app_id=${bandsInTownKey}&date=upcoming`
     )
     .then(results => {
-      console.log(results.data[0]);
-      res.render('show-events', { searchResults: results.data[0] });
+      console.log(results.data.length === 0);
+      res.render('show-events', { searchResults: results.data });
     });
 });
 
