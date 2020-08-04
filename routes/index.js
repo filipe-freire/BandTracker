@@ -28,7 +28,7 @@ spotifyApi
   .then(data => spotifyApi.setAccessToken(data.body['access_token']))
   .catch(error => console.log('Something went wrong when retrieving an access token', error));
 
-// START TESTING FAVOURITES
+// ----------- START TESTING FAVOURITES -------------
 
 router.get('/favourites-creation', routeGuard, (req, res) => {
   res.render('favourites-creation');
@@ -47,11 +47,35 @@ router.post('/favourites-creation', routeGuard, (req, res, next) => {
     });
 });
 
-router.get('/favourites-display', routeGuard, (req, res) => {
-  res.render('favourites-display');
+router.get('/favourites-display', routeGuard, (req, res, next) => {
+  //const user = req.user;
+
+  Favourites.find()
+    .then(data => {
+      console.log(data);
+      res.render('favourites-display', { favourite: data });
+    })
+    .catch(error => {
+      next(error);
+    });
+});
+// -------- END TESTING FAVOURITES -----------
+
+// -------- START SINGLE ARTIST PAGE ------------
+
+router.get('/artist/:name', routeGuard, (req, res, next) => {
+  Favourites.find()
+    .then(data => {
+      console.log(data);
+      res.render('favourites-display', { favourite: data });
+    })
+    .catch(error => {
+      next(error);
+    });
 });
 
-// END TESTING FAVOURITES
+// -------- START SINGLE ARTIST PAGE ------------
+
 // Spotify get artist results route/view
 router.get('/artist-search', (req, res) => {
   const term = req.query.term;
@@ -62,8 +86,6 @@ router.get('/artist-search', (req, res) => {
       console.log('The received data from the API: ', data.body.artists.items);
 
       res.render('artist-search-results', { artists: data.body.artists.items });
-
-      // ----> 'HERE WHAT WE WANT TO DO AFTER RECEIVING THE DATA FROM THE API'
     })
     .catch(err => console.log('The error while searching artists occurred: ', err));
 });
