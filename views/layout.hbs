@@ -20,7 +20,17 @@
         <a href="/authentication/sign-up">Sign Up</a>
       {{/if}}
     </nav>
-    {{{body}}}
+     {{#if user}} 
+       {{{body}}} 
+       </br>
+        <a href="/favourites-display">My Favourite Artists</a><br>
+        <a href="/favourites-creation">Add Favourite Band</a>
+       
+       {{else}}
+       {{{body}}}
+      {{/if}}
+  
+    
     <script src="/scripts/script.js"></script>
   </body>
 </html>
