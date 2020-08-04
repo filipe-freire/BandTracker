@@ -26,7 +26,9 @@ const upload = multer({ storage });
 spotifyApi
   .clientCredentialsGrant()
   .then(data => spotifyApi.setAccessToken(data.body['access_token']))
-  .catch(error => console.log('Something went wrong when retrieving an access token', error));
+  .catch(error =>
+    console.log('Something went wrong when retrieving an access token', error)
+  );
 
 // ----------- START TESTING FAVOURITES -------------
 
@@ -97,7 +99,9 @@ router.get('/artist/:id', routeGuard, (req, res, next) => {
       };
       res.render('artist-page', { artist });
     })
-    .catch(err => console.log('The error while searching artists occurred: ', err));
+    .catch(err =>
+      console.log('The error while searching artists occurred: ', err)
+    );
 });
 
 // -------- ENDING SINGLE ARTIST PAGE ------------
@@ -113,7 +117,9 @@ router.get('/artist-search', (req, res) => {
 
       res.render('artist-search-results', { artists: data.body.artists.items });
     })
-    .catch(err => console.log('The error while searching artists occurred: ', err));
+    .catch(err =>
+      console.log('The error while searching artists occurred: ', err)
+    );
 });
 
 // PREDICTHQ API - GET INFO OF ONLY CONCERTS & TOUR DATES
@@ -143,21 +149,33 @@ router.get('/edit', routeGuard, (req, res, next) => {
   res.render('edit');
 });
 
-router.post('/edit', upload.single('profilePicture'), routeGuard, (req, res, next) => {
-  const id = req.session.user;
+router.post(
+  '/edit',
+  upload.single('profilePicture'),
+  routeGuard,
+  (req, res, next) => {
+    const id = req.session.user;
+    const { name, email, trackBands } = req.body;
 
-  const { name, email, trackBands } = req.body;
-  const profilePicture = req.file.path;
+    let data;
 
-  User.findByIdAndUpdate(id, { name, email, profilePicture, trackBands })
-    .then(() => {
-      res.redirect('/private');
-    })
-    .catch(error => {
-      console.log(error);
-      next(error);
-    });
-});
+    if (req.file) {
+      const profilePicture = req.file.path;
+      data = { name, email, profilePicture, trackBands };
+    } else {
+      data = { name, email, trackBands };
+    }
+
+    User.findByIdAndUpdate(id, data)
+      .then(() => {
+        res.redirect('/private');
+      })
+      .catch(error => {
+        console.log(error);
+        next(error);
+      });
+  }
+);
 
 router.post('/delete', routeGuard, (req, res, next) => {
   const id = req.session.user;
