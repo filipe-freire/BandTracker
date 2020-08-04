@@ -68,7 +68,8 @@ router.post('/sign-up', upload.single('profilePicture'), (req, res, next) => {
           from: process.env.NODEMAILER_EMAIL,
           to: user.email,
           subject: 'Click the link to activate your account!',
-          html: `<html>
+          html: `
+          <html>
                     <head>
                       <style>
                         body {}
@@ -88,7 +89,6 @@ router.post('/sign-up', upload.single('profilePicture'), (req, res, next) => {
         .catch(error => {
           console.log('There was an error sending the email', error);
         });
-
       res.redirect('/');
     })
     .catch(error => {

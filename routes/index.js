@@ -36,15 +36,16 @@ router.get('/artist-search', (req, res) => {
 });
 
 // PREDICTHQ API - GET INFO OF ONLY CONCERTS & TOUR DATES
-router.get('/artists', (req, res) => {
+router.get('/show-events', (req, res) => {
   axios
-    .get('https://api.predicthq.com/v1/events/?category=concerts', {
+    .get('https://api.predicthq.com/v1/events/?category=concerts&limit=10', {
       headers: {
         Authorization: 'Bearer ' + process.env.PREDICTHQ_ACCESS_TOKEN //the token given by PredictHQ
       }
     })
-    .then(result => {
-      console.log(result.data); // only logs the output so far, doesn't display it to the page - FIX
+    .then(results => {
+      console.log(results.data.results); // only logs the output so far, doesn't display it to the page - FIX
+      res.render('show-events', { searchResults: results.data.results });
     });
 });
 
