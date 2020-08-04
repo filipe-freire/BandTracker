@@ -30,7 +30,7 @@ const schema = new mongoose.Schema(
       required: [true, 'A profile picture is required.']
     },
     trackBands: {
-      type: String
+      type: Array
     },
     // Send confirmation email to user
     status: {

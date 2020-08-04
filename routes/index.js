@@ -6,18 +6,28 @@ const routeGuard = require('./../middleware/route-guard');
 // Install/Require additional dependencies
 const axios = require('axios');
 const SpotifyWebApi = require('spotify-web-api-node');
-
+const User = require('./../models/user');
 // Integration with the spotify app in order to get artist images
 // brief description & genres
 const spotifyApi = new SpotifyWebApi({
   clientId: process.env.CLIENT_ID, // don't forget to put api keys in .env file
   clientSecret: process.env.CLIENT_SECRET
 });
+const multer = require('multer');
+const cloudinary = require('cloudinary');
+const multerStorageCloudinary = require('multer-storage-cloudinary');
+
+const storage = new multerStorageCloudinary.CloudinaryStorage({
+  cloudinary: cloudinary.v2
+});
+const upload = multer({ storage });
 
 spotifyApi
   .clientCredentialsGrant()
   .then(data => spotifyApi.setAccessToken(data.body['access_token']))
-  .catch(error => console.log('Something went wrong when retrieving an access token', error));
+  .catch(error =>
+    console.log('Something went wrong when retrieving an access token', error)
+  );
 
 // Spotify get artist results route/view
 router.get('/artist-search', (req, res) => {
@@ -32,7 +42,9 @@ router.get('/artist-search', (req, res) => {
 
       // ----> 'HERE WHAT WE WANT TO DO AFTER RECEIVING THE DATA FROM THE API'
     })
-    .catch(err => console.log('The error while searching artists occurred: ', err));
+    .catch(err =>
+      console.log('The error while searching artists occurred: ', err)
+    );
 });
 
 // PREDICTHQ API - GET INFO OF ONLY CONCERTS & TOUR DATES
@@ -57,5 +69,31 @@ router.get('/', (req, res, next) => {
 router.get('/private', routeGuard, (req, res, next) => {
   res.render('private');
 });
+
+router.get('/edit', routeGuard, (req, res, next) => {
+  res.render('edit');
+});
+
+router.post(
+  '/edit',
+  upload.single('profilePicture'),
+  routeGuard,
+  (req, res, next) => {
+    const id = req.session.user;
+    console.log(req.session.user);
+
+    const { name, email, trackBands } = req.body;
+    const profilePicture = req.file.path;
+
+    User.findByIdAndUpdate(id, { name, email, profilePicture, trackBands })
+      .then(() => {
+        res.redirect('/private');
+      })
+      .catch(error => {
+        console.log(error);
+        next(error);
+      });
+  }
+);
 
 module.exports = router;
