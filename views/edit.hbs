@@ -1,10 +1,10 @@
 <form method="POST" enctype="multipart/form-data">
 
   <label for="input-name">Name</label>
-  <input type="text" id="input-name" name="name" placeholder="Your Name" value="{{ user.name }}" />
+  <input type="text" id="input-name" name="name" placeholder="Your Name" value="{{ user.name }}" {{!-- required minlength="3" maxlength="12"  --}}/>
   
   <label for="input-email">Email</label>
-  <input type="email" id="input-email" name="email" placeholder="Your Email" value="{{ user.email }}" />
+  <input type="email" id="input-email" name="email" placeholder="Your Email" value="{{ user.email }}" required />
   
   {{!-- USERTYPE SELECTION HERE --}}
   {{!-- <label for="select-userType">Type of User</label>
@@ -16,11 +16,11 @@
   <!-- PROFILE PICTURE UPDATE -->
   <img src="{{user.profilePicture}}" alt="profile-pic" style="width: 200px">
   <label for="input-profilePicture">Update Picture</label>
-  <input type="file" name="profilePicture" id="input-profilePicture">
+  <input type="file" name="profilePicture" id="input-profilePicture" required>
 
   <!-- FAVOURITE BANDS ARRAY UPDATE -->
   <label for="input-trackBands">What band/artist do you want to track?</label>
-  <input type="text" name="trackBands" id="input-trackBands" value="{{user.trackBands}}">
+  <input type="text" name="trackBands" id="input-trackBands" value="{{user.trackBands}}" required>
 
 
   <button>Edit Profile</button>
