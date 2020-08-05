@@ -88,6 +88,9 @@ a {
 }
 
 nav {
+  .logo {
+    max-width: 100px;
+  }
   background-color: $dark-color;
   color: $light-color;
   padding: 0 2em;
