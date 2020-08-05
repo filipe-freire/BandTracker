@@ -94,7 +94,7 @@ router.get('/favourites-display', routeGuard, (req, res, next) => {
 
 // -------- START SINGLE ARTIST PAGE ------------
 
-router.get('/artist/:id', routeGuard, (req, res, next) => {
+router.get('/artist/:id', routeGuard, (req, res) => {
   const id = req.params.id;
   let spotifyData;
   spotifyApi
@@ -162,15 +162,15 @@ router.get('/show-events', (req, res) => {
 });
 
 // NORMAL APP ROUTING
-router.get('/', (req, res, next) => {
+router.get('/', (req, res) => {
   res.render('index', { title: 'BandTracker' });
 });
 
-router.get('/private', routeGuard, (req, res, next) => {
+router.get('/private', routeGuard, (req, res) => {
   res.render('private');
 });
 
-router.get('/edit', routeGuard, (req, res, next) => {
+router.get('/edit', routeGuard, (req, res) => {
   res.render('edit');
 });
 
