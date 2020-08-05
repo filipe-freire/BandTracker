@@ -127,10 +127,11 @@ ul {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  line-height: 1.6;
 
   .card {
     background-color: #051035a8;
-    padding: 2em 4em;
+    padding: 2em 3em;
     border-radius: 15px;
     border: 1px groove whitesmoke;
     text-align: center;
@@ -177,7 +178,7 @@ nav {
 
   background-color: $dark-color;
   color: $light-color;
-  padding: 0 2em;
+  padding: 0 2em 1em;
   display: flex;
   a,
   button {
