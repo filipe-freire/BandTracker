@@ -110,7 +110,7 @@ router.get('/confirm-email', (req, res, next) => {
   console.log(token);
   User.findOneAndUpdate(
     { confirmationToken: token },
-    { status: 'active' },
+    { status: 1 },
     { new: true }
   )
     .then(user => {

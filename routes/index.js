@@ -72,7 +72,7 @@ router.get('/favourites-creation', routeGuard, (req, res) => {
 router.post('/favourites-creation', routeGuard, (req, res, next) => {
   const { artistName } = req.body;
   const artistNameArr = artistName.split(',');
-
+  console.log(artistNameArr);
   Favourites.create({
     artistName: artistNameArr,
     creator: req.session.user

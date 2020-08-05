@@ -32,9 +32,9 @@ const schema = new mongoose.Schema(
     },
     // Send confirmation email to user
     status: {
-      type: String,
-      enum: ['pending_confirmation', 'active'],
-      default: 'pending_confirmation'
+      type: Number,
+      enum: [0, 1], // 0 = 'confirmation pending' \ 1 = 'active'
+      default: 0
     },
     confirmationToken: {
       type: String

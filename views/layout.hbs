@@ -10,7 +10,7 @@
   <body>
     <nav>
       <a href="/">Home</a>
-      {{#if user}}
+      {{#if user.status}}
         <a href="/private">{{user.name}}'s Profile</a>
         <a href="/favourites-display">My Favourite Artists</a><br>
         <a href="/favourites-creation">Add Favourite Band</a>
