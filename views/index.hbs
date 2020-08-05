@@ -1,14 +1,28 @@
+<section class="background-video">
+  <div class="video-container">
+            <video src="https://www.videvo.net/videvo_files/converted/2016_09/preview/Beach_Party_1.mov41295.webm" autoplay muted loop></video>
+        </div>
+        <div class="content">
+            <div class="card">
+              <h1>BandTracker</h1>
+              <h2>Never Miss A Concert Again!</h2>
+              <a class="btn">Sign Up Now</a>
+            </div>
+        </div>
+</section>
 
-<h1 class="center-h">{{title}}</h1>
-<p>Welcome to {{title}}</p>
-{{!-- {{#if user.status}} --}}
-<h1 class="center-h lh-1">Testing Spotify Integration</h1>
-<form action="/artist-search" method="GET">
-  <input type="text" placeholder="Search for any artist here!" name="term">
-  <button>Search for an Artist</button>
-</form>
-<h1 class="center-h lh-1" >Testing BandsInTown Integration</h1>
-<form action="/show-events" method="GET">
-  <input type="text" placeholder="Search for any artist here!" name="term">
-  <button>Search for an Artist</button>
-</form>
+<div class="container">
+    <h1 class="center-h">{{title}}</h1>
+    <p>Welcome to {{title}}!  </p>
+    {{!-- {{#if user.status}} --}}
+    <h1 class="center-h lh-1">Artist Search</h1>
+    <form action="/artist-search" method="GET">
+      <input type="text" placeholder="Search for any artist here!" name="term">
+      <button>Search for an Artist</button>
+    </form>
+    <h1 class="center-h lh-1" >Find Events by Artist</h1>
+    <form action="/show-events" method="GET">
+      <input type="text" placeholder="Search for any artist here!" name="term">
+      <button>Search for an Artist</button>
+    </form>
+</div>

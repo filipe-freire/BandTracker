@@ -26,8 +26,7 @@ const router = new Router();
 
 // token for Confirmation Email
 const generateRandomToken = length => {
-  const characters =
-    '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
   let token = '';
   for (let i = 0; i < length; i++) {
     token += characters[Math.floor(Math.random() * characters.length)];
@@ -108,11 +107,7 @@ router.post('/sign-up', upload.single('profilePicture'), (req, res, next) => {
 router.get('/confirm-email', (req, res, next) => {
   const token = req.query.token;
   console.log(token);
-  User.findOneAndUpdate(
-    { confirmationToken: token },
-    { status: 1 },
-    { new: true }
-  )
+  User.findOneAndUpdate({ confirmationToken: token }, { status: 1 }, { new: true })
     .then(user => {
       console.log(user);
       res.render('confirmation', { user }); //render confirmation page

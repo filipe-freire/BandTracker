@@ -1,6 +1,6 @@
 $font-sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 $grey: hsla(0, 0, 75%, 0.5);
-$dark-color: rgb(49, 45, 45);
+$dark-color: rgb(29, 26, 26);
 $light-color: rgb(255, 254, 241);
 
 * {
@@ -12,6 +12,12 @@ $light-color: rgb(255, 254, 241);
 }
 
 // START OF CUSTOM STYLING
+html {
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+}
+
 .bold {
   font-weight: bold;
 }
@@ -71,15 +77,92 @@ ul {
   }
 }
 
+// start of background video
+
+.background-video {
+  height: 95vh;
+  display: grid;
+}
+
+.video-container {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--primary-color);
+}
+
+.video-container video {
+  min-width: 100%;
+  min-height: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+}
+
+.video-container:after {
+  content: '';
+  z-index: 1;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background: linear-gradient(
+    to bottom right,
+    rgba(26, 38, 196, 0.623) 0%,
+    rgba(78, 85, 17, 0.65) 100%
+  );
+  position: absolute;
+}
+
+.content {
+  z-index: 2;
+  color: $light-color;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .card {
+    background-color: #051035a8;
+    padding: 2em 4em;
+    border-radius: 15px;
+    border: 1px groove whitesmoke;
+    text-align: center;
+
+    .btn {
+      background: black;
+      border: 2px groove $light-color;
+      font-weight: bold;
+      font-size: 1.5em;
+      padding: 0.5em 0;
+    }
+
+    .btn:hover {
+      color: rgb(233, 222, 74);
+      cursor: pointer;
+    }
+  }
+}
+
 // END OF CUSTOM STYLING
 
 body {
-  max-width: 52em;
-  padding: 0 1em;
+  // max-width: 52em;
   margin: 0 auto;
   font-family: sans-serif;
   font-family: $font-sans;
   line-height: 2;
+
+  .container {
+    max-width: 52em;
+    margin: 2em auto;
+  }
 }
 
 a {
@@ -88,16 +171,17 @@ a {
 }
 
 nav {
-  .logo {
-    max-width: 100px;
-  }
+  position: sticky;
+  top: 0;
+  z-index: 3;
+
   background-color: $dark-color;
   color: $light-color;
   padding: 0 2em;
   display: flex;
   a,
   button {
-    padding: 1em 0;
+    padding: 1em 0 0.2em;
     border: 0;
     &:not(:last-child) {
       margin-right: 1em;
