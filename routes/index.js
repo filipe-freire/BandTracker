@@ -116,7 +116,7 @@ router.get('/artist/:id', routeGuard, (req, res, next) => {
     .then(response => {
       const events = response.data;
       console.log(events);
-      console.log(events.artist.name === spotifyData.body.name);
+      console.log(events[0].artist.name === spotifyData.body.name);
 
       if (events[0].artist.name == spotifyData.body.name) {
         const artist = {

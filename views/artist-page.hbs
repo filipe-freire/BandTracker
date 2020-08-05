@@ -10,11 +10,29 @@
 
 {{#if artist.artistEvents.length}}
 
-{{!-- REFERENCES EVENT OBJECT --}}
-<h4> Next Concerts: {{artist.artistEvents.0.venue.location }}</h4> {{!-- change artist call --}}
-<h5> Date: {{date artist.artistEvents.0.datetime "DD/MM/YYYY,HH:mm" }}</h5>
-<h5> Tickets: <a href="{{ artist.artistEvents.0.offers.0.url }}">{{artist.artistEvents.0.offers.0.status }}</a> </h5> 
+            {{!-- REFERENCES EVENT OBJECT --}}
+            {{#each artist.artistEvents}}
 
-{{else}}
-<h1>No tours available</h1>
+                <h4> Next Concerts: {{venue.location }}</h4> {{!-- change artist call --}}
+                <h5> Date: {{date datetime "DD/MM/YYYY,HH:mm" }}</h5>
+
+                    {{#if offers.length}}
+
+                        {{!-- {{#each offer}} --}}
+
+                          <h5> Tickets: <a href="{{ offers.0.url }}">{{offers.0.status }}</a> </h5> 
+
+                        {{!-- {{/each}} --}}
+                    {{else}}
+
+                        {{!-- <h5>No Info Available on Tickets</h5> --}}
+                        <h5>No Tickets Available</h5>
+
+                    {{/if}}
+
+
+            {{/each}}
+
+      {{else}}
+      <h1>No tours available</h1>
 {{/if}}
