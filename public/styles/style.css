@@ -4,6 +4,19 @@
 .bold {
   font-weight: bold; }
 
+.genres {
+  margin-bottom: 2em; }
+
+.tickets {
+  font-weight: bold; }
+
+.fw-regular {
+  font-weight: normal; }
+
+.tickets-available {
+  font-weight: bold;
+  color: #007710; }
+
 footer {
   background-color: #312d2d;
   color: #fffef1;
@@ -11,6 +24,12 @@ footer {
   padding: 1em 0; }
   footer p {
     margin: 0 auto; }
+
+ul {
+  list-style: '\1F3B5'; }
+  ul li {
+    padding-left: 0.5em;
+    font-weight: 700; }
 
 body {
   max-width: 52em;
