@@ -11,9 +11,33 @@ $light-color: rgb(255, 254, 241);
   }
 }
 
-// CUSTOM STYLES
+// START OF CUSTOM STYLING
 .bold {
   font-weight: bold;
+}
+
+.center-h {
+  margin: 0 auto;
+
+  display: flex;
+  justify-content: center;
+}
+
+.genres {
+  margin-bottom: 2em;
+}
+
+.tickets {
+  font-weight: bold;
+}
+
+.fw-regular {
+  font-weight: normal;
+}
+
+.tickets-available {
+  font-weight: bold;
+  color: #007710;
 }
 
 footer {
@@ -26,6 +50,17 @@ footer {
     margin: 0 auto;
   }
 }
+
+ul {
+  list-style: '\1F3B5';
+
+  li {
+    padding-left: 0.5em;
+    font-weight: 700;
+  }
+}
+
+// END OF CUSTOM STYLING
 
 body {
   max-width: 52em;
