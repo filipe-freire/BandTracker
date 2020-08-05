@@ -21,6 +21,17 @@ $light-color: rgb(255, 254, 241);
 
   display: flex;
   justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.lh-1 {
+  line-height: 1.5em;
+}
+
+.img-artist-search {
+  border-radius: 10px;
+  filter: drop-shadow(0 0 0.75rem rgba(68, 23, 94, 0.589));
 }
 
 .genres {
