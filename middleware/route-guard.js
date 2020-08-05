@@ -7,7 +7,9 @@ module.exports = (req, res, next) => {
   if (req.user.status === 1) {
     next();
   } else {
-    const error = new Error('Authentication pending');
+    const error = new Error(
+      'To proceed, please check your email adress to finish create your account'
+    );
     next(error);
   }
 };

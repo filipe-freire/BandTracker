@@ -1,3 +1,7 @@
+{{#if user}}
+<h4> Please check your email adress to finish creating your account</h4>
+
+
 <h1 class="center-h lh-1">Your Account</h1>
 <span><strong>Profile Picture</strong>: <br>
 
@@ -11,23 +15,15 @@
 <br />
 {{!-- <span><strong>Type of User</strong>: {{user.userType}}</span>
 <br /> --}}
+<a href="/favourites-display">My Favourite Artists</a><br>
+{{#if user.status}}
+<a href="/favourites-add">Add Favourite Band</a>
 
-
-<span><strong>Bands Being Tracked</strong>: 
-{{!-- 
-{{#each favorite.artistName}}
-  <a href="/artist-search?term={{this}}">{{this}}</a>
-{{/each}}
- --}}
-</span><br>
- 
-
-
-<a href="/favourites-creation">Add Favourite Band</a><br>
-<a href="/favourites-display">My Favourite Artists</a>
 </br>
 <a href="/edit">Edit Profile</a>
 
 <form method="POST" action="/delete">
   <button>Delete User</button>
 </form>
+{{/if}}
+{{/if}}
