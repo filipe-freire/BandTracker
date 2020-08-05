@@ -64,7 +64,6 @@ router.get('/bands-in-town/events', (req, res, next) => {
 // ----------- START TESTING FAVOURITES -------------
 
 router.get('/favourites-creation', routeGuardDefault, routeGuardFavourites, (req, res) => {
-  console.log(req.user);
   res.render('favourites-creation');
 });
 
@@ -88,24 +87,6 @@ router.post('/favourites-creation', (req, res, next) => {
       next(error);
     });
 });
-/*
-router.get('/:id/edit', routeGuard, (request, response, next) => {
-  const id = request.params.id;
-  const userId = request.session.userId;
-
-  Favourites.findOne({ _id: id, creator: userId })
-    .then(post => {
-      if (post) {
-        response.render('post/edit', { post });
-      } else {
-        next();
-      }
-    })
-    .catch(error => {
-      next(error);
-    });
-});
-*/
 
 router.get('/favourites-display', routeGuard, (req, res, next) => {
   //const user = req.user;
@@ -119,6 +100,25 @@ router.get('/favourites-display', routeGuard, (req, res, next) => {
       next(error);
     });
 });
+
+router.get('/favourites-add', routeGuard, (req, res, next) => {
+  res.render('favourites-add');
+});
+
+router.post('/favourites-add', routeGuard, (req, res, next) => {
+  const { artistName } = req.body;
+  console.log(artistName);
+  const artistNameArr = artistName.split(',');
+  console.log(artistNameArr);
+  const userId = req.user._id;
+
+  Favourites.findOneAndUpdate({ creator: userId }, { $push: { artistName: artistNameArr } })
+    .then(res.redirect('/favourites-display'))
+    .catch(error => {
+      next(error);
+    });
+});
+
 // -------- END TESTING FAVOURITES -----------
 
 // -------- START SINGLE ARTIST PAGE ------------
