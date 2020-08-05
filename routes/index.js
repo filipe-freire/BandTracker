@@ -108,21 +108,6 @@ router.get('/favourites-display', routeGuard, (req, res, next) => {
     });
 });
 
-router.post('/favourites-display', routeGuard, (req, res, next) => {
-  const { artistName } = req.body;
-  console.log(artistName);
-
-  const userId = req.user._id;
-
-  Favourites.findOneAndDelete({ creator: userId }, { $pull: { artistName } })
-    .then(() => {
-      res.redirect('/favourites-display');
-    })
-    .catch(error => {
-      next(error);
-    });
-});
-
 router.get('/favourites-add', routeGuard, (req, res, next) => {
   res.render('favourites-add');
 });
