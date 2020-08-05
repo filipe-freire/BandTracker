@@ -27,17 +27,13 @@ const upload = multer({ storage });
 spotifyApi
   .clientCredentialsGrant()
   .then(data => spotifyApi.setAccessToken(data.body['access_token']))
-  .catch(error =>
-    console.log('Something went wrong when retrieving an access token', error)
-  );
+  .catch(error => console.log('Something went wrong when retrieving an access token', error));
 
 // ----------- START OF TESTING BANDSINTOWN API -------------
 
 router.get('/bands-in-town', (req, res, next) => {
   axios
-    .get(
-      `https://rest.bandsintown.com/artists/Kendrick%20Lamar?app_id=${bandsInTownKey}`
-    )
+    .get(`https://rest.bandsintown.com/artists/Kendrick%20Lamar?app_id=${bandsInTownKey}`)
     .then(results => {
       console.log(results.data);
       res.render('bands-in-town', { searchResult: results.data });
@@ -98,7 +94,7 @@ router.get('/favourites-display', routeGuard, (req, res, next) => {
 
 // -------- START SINGLE ARTIST PAGE ------------
 
-router.get('/artist/:id', routeGuard, (req, res) => {
+router.get('/artist/:id', routeGuard, (req, res, next) => {
   const id = req.params.id;
   let spotifyData;
   spotifyApi
@@ -106,7 +102,7 @@ router.get('/artist/:id', routeGuard, (req, res) => {
     .then(data => {
       //console.log('The received data from the API: ', data.body);
       spotifyData = data;
-      console.log(spotifyData.body.name);
+      //console.log(spotifyData.body.name);
       const normalizedTerm = spotifyData.body.name.split(' ').join('%20');
 
       return axios.get(
@@ -116,19 +112,22 @@ router.get('/artist/:id', routeGuard, (req, res) => {
     .then(response => {
       const events = response.data;
       console.log(events);
-      console.log(events[0].artist.name === spotifyData.body.name);
+      // console.log(events[0].artist.name === spotifyData.body.name);
+      const artist = {
+        spotifyData: spotifyData.body,
+        artistEvents: events
+      };
 
-      if (events[0].artist.name == spotifyData.body.name) {
-        const artist = {
-          spotifyData: spotifyData.body,
-          artistEvents: events
-        };
+      if (events.length) {
+        if (events[0].artist.name == spotifyData.body.name) {
+          console.log(artist.artistEvents);
+          return res.render('artist-page', { artist });
+        }
+      } else {
         return res.render('artist-page', { artist });
       }
     })
-    .catch(err =>
-      console.log('The error while searching artists occurred: ', err)
-    );
+    .catch(err => console.log('The error while searching artists occurred: ', err));
 });
 
 // -------- ENDING SINGLE ARTIST PAGE ------------
@@ -144,9 +143,7 @@ router.get('/artist-search', (req, res) => {
 
       res.render('artist-search-results', { artists: data.body.artists.items });
     })
-    .catch(err =>
-      console.log('The error while searching artists occurred: ', err)
-    );
+    .catch(err => console.log('The error while searching artists occurred: ', err));
 });
 
 // PREDICTHQ API - GET INFO OF ONLY CONCERTS & TOUR DATES
@@ -165,45 +162,40 @@ router.get('/show-events', (req, res) => {
 });
 
 // NORMAL APP ROUTING
-router.get('/', (req, res) => {
+router.get('/', (req, res, next) => {
   res.render('index', { title: 'BandTracker' });
 });
 
-router.get('/private', routeGuard, (req, res) => {
+router.get('/private', routeGuard, (req, res, next) => {
   res.render('private');
 });
 
-router.get('/edit', routeGuard, (req, res) => {
+router.get('/edit', routeGuard, (req, res, next) => {
   res.render('edit');
 });
 
-router.post(
-  '/edit',
-  upload.single('profilePicture'),
-  routeGuard,
-  (req, res, next) => {
-    const id = req.session.user;
-    const { name, email, trackBands } = req.body;
+router.post('/edit', upload.single('profilePicture'), routeGuard, (req, res, next) => {
+  const id = req.session.user;
+  const { name, email, trackBands } = req.body;
 
-    let data;
+  let data;
 
-    if (req.file) {
-      const profilePicture = req.file.path;
-      data = { name, email, profilePicture, trackBands };
-    } else {
-      data = { name, email, trackBands };
-    }
-
-    User.findByIdAndUpdate(id, data)
-      .then(() => {
-        res.redirect('/private');
-      })
-      .catch(error => {
-        console.log(error);
-        next(error);
-      });
+  if (req.file) {
+    const profilePicture = req.file.path;
+    data = { name, email, profilePicture, trackBands };
+  } else {
+    data = { name, email, trackBands };
   }
-);
+
+  User.findByIdAndUpdate(id, data)
+    .then(() => {
+      res.redirect('/private');
+    })
+    .catch(error => {
+      console.log(error);
+      next(error);
+    });
+});
 
 router.post('/delete', routeGuard, (req, res, next) => {
   const id = req.session.user;
