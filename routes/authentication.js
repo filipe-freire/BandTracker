@@ -98,7 +98,7 @@ router.post('/sign-up', upload.single('profilePicture'), (req, res, next) => {
         .catch(error => {
           console.log('There was an error sending the email', error);
         });
-      res.redirect('/');
+      res.redirect('/favourites-creation');
     })
     .catch(error => {
       next(error);

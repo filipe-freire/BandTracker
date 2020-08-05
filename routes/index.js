@@ -3,6 +3,8 @@
 const { Router } = require('express');
 const router = new Router();
 const routeGuard = require('./../middleware/route-guard');
+const routeGuardDefault = require('./../middleware/route-guard-default');
+const routeGuardFavourites = require('./../middleware/route-guard-created-favourites');
 // Install/Require additional dependencies
 const axios = require('axios');
 const SpotifyWebApi = require('spotify-web-api-node');
@@ -65,23 +67,50 @@ router.get('/bands-in-town/events', (req, res, next) => {
 
 // ----------- START TESTING FAVOURITES -------------
 
-router.get('/favourites-creation', routeGuard, (req, res) => {
-  res.render('favourites-creation');
-});
+router.get(
+  '/favourites-creation',
+  routeGuardDefault,
+  routeGuardFavourites,
+  (req, res) => {
+    res.render('favourites-creation');
+  }
+);
 
-router.post('/favourites-creation', routeGuard, (req, res, next) => {
+router.post('/favourites-creation', (req, res, next) => {
   const { artistName } = req.body;
   const artistNameArr = artistName.split(',');
+
   console.log(artistNameArr);
+
+  User.findByIdAndUpdate();
+
   Favourites.create({
     artistName: artistNameArr,
     creator: req.session.user
   })
-    .then(res.redirect('/favourites-display'))
+    .then(res.redirect('/'))
     .catch(error => {
       next(error);
     });
 });
+/*
+router.get('/:id/edit', routeGuard, (request, response, next) => {
+  const id = request.params.id;
+  const userId = request.session.userId;
+
+  Favourites.findOne({ _id: id, creator: userId })
+    .then(post => {
+      if (post) {
+        response.render('post/edit', { post });
+      } else {
+        next();
+      }
+    })
+    .catch(error => {
+      next(error);
+    });
+});
+*/
 
 router.get('/favourites-display', routeGuard, (req, res, next) => {
   //const user = req.user;
