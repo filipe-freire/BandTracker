@@ -124,7 +124,7 @@ nav {
   z-index: 3;
   background-color: #1d1a1a;
   color: #fffef1;
-  padding: 0 2em;
+  padding: 0 2em 1em;
   display: flex; }
   nav a,
   nav button {
