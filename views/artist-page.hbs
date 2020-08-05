@@ -11,8 +11,8 @@
 {{#if artist.artistEvents.length}}
 
 {{!-- REFERENCES EVENT OBJECT --}}
-<h4> Next Concerts: {{artist.artistEvents.0.venue.location }}</h4> 
-<h5> Date: {{artist.artistEvents.0.datetime }}</h5>
+<h4> Next Concerts: {{artist.artistEvents.0.venue.location }}</h4> {{!-- change artist call --}}
+<h5> Date: {{date artist.artistEvents.0.datetime "DD/MM/YYYY,HH:mm" }}</h5>
 <h5> Tickets: <a href="{{ artist.artistEvents.0.offers.0.url }}">{{artist.artistEvents.0.offers.0.status }}</a> </h5> 
 
 {{else}}
