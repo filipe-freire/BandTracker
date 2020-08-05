@@ -14,8 +14,8 @@
 
 {{!-- REFERENCES EVENT OBJECT --}}
 
-<h4> Next Concerts: {{ searchResult.datetime }}</h4> 
-{{!-- <h5> Date: {{ searchResult.datetime }}</h5> --}}
+<h4> Next Concerts: {{ date searchResult.datetime "DD/MM/YYYY,HH:mm" }}</h4> 
+{{!-- <h5> Date: {{ date searchResult.datetime "DD/MM/YYYY,HH:mm"}}</h5> --}}
 <h5> Where: {{searchResult.venue.location }} | {{searchResult.venue.name}}</h5> 
 
 {{else}}

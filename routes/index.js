@@ -96,37 +96,31 @@ router.get('/favourites-display', routeGuard, (req, res, next) => {
 
 router.get('/artist/:id', routeGuard, (req, res, next) => {
   const id = req.params.id;
-  console.log(id);
   let spotifyData;
   spotifyApi
     .getArtist(id)
     .then(data => {
       //console.log('The received data from the API: ', data.body);
       spotifyData = data;
+      console.log(spotifyData.body.name);
+      const normalizedTerm = spotifyData.body.name.split(' ').join('%20');
+
       return axios.get(
-        'https://api.predicthq.com/v1/events/?category=concerts&limit=50&active.gte=2020-08-04&active.lte=2020-12-30',
-        {
-          headers: {
-            Authorization: 'Bearer ' + process.env.PREDICTHQ_ACCESS_TOKEN //the token given by PredictHQ
-          }
-        }
+        `https://rest.bandsintown.com/artists/${normalizedTerm}/events?app_id=${bandsInTownKey}&date=upcoming`
       );
-      //call the api with all the events
     })
     .then(response => {
-      console.log(spotifyData.body.name);
-      const events = response.data.results;
-      const artistEvents = events.find(event => {
-        if (event.title == spotifyData.body.name) {
-          return event;
-        }
-      });
-      console.log(artistEvents);
-      const artist = {
-        artist: spotifyData.body,
-        artistEvents
-      };
-      res.render('artist-page', { artist });
+      const events = response.data;
+      console.log(events);
+      console.log(events[0].artist.name === spotifyData.body.name);
+
+      if (events[0].artist.name == spotifyData.body.name) {
+        const artist = {
+          spotifyData: spotifyData.body,
+          artistEvents: events
+        };
+        return res.render('artist-page', { artist });
+      }
     })
     .catch(err => console.log('The error while searching artists occurred: ', err));
 });

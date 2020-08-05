@@ -5,8 +5,10 @@
   font-weight: bold; }
 
 footer {
+  background-color: #312d2d;
+  color: #fffef1;
   display: flex;
-  padding-bottom: 1em; }
+  padding: 1em 0; }
   footer p {
     margin: 0 auto; }
 
@@ -23,8 +25,8 @@ a {
   text-decoration: none; }
 
 nav {
-  background-color: #000;
-  color: #fff;
+  background-color: #312d2d;
+  color: #fffef1;
   padding: 0 2em;
   display: flex; }
   nav a,

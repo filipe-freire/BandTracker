@@ -25,18 +25,6 @@
     </nav>
        {{{body}}} 
      
-        {{#if user}}  
-        <h3>Bands you are following!</h3>
-      {{#each user.trackBands}}
-      <ul>
-
-        <li>
-         <a href="/artist-search?term={{this}}">{{this}}</a> 
-        </li>
-
-       </ul>
-        {{/each}}
-          {{/if}}
        <footer>
          <p>
            2020 | BandTracker

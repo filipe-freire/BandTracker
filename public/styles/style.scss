@@ -1,5 +1,7 @@
 $font-sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 $grey: hsla(0, 0, 75%, 0.5);
+$dark-color: rgb(49, 45, 45);
+$light-color: rgb(255, 254, 241);
 
 * {
   &,
@@ -15,8 +17,11 @@ $grey: hsla(0, 0, 75%, 0.5);
 }
 
 footer {
+  background-color: $dark-color;
+  color: $light-color;
+
   display: flex;
-  padding-bottom: 1em;
+  padding: 1em 0;
   p {
     margin: 0 auto;
   }
@@ -37,8 +42,8 @@ a {
 }
 
 nav {
-  background-color: #000;
-  color: #fff;
+  background-color: $dark-color;
+  color: $light-color;
   padding: 0 2em;
   display: flex;
   a,

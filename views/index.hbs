@@ -11,3 +11,14 @@
   <input type="text" placeholder="Search for any artist here!" name="term">
   <button>Search for an Artist</button>
 </form>
+
+{{#if user}}  
+  <h3>Bands you are following!</h3>
+  {{#each user.trackBands}}
+    <ul>
+      <li>
+        <a href="/artist-search?term={{this}}">{{this}}</a> 
+      </li>
+    </ul>
+  {{/each}}
+{{/if}}
