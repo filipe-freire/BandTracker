@@ -9,30 +9,16 @@
 {{!-- INSERT TOURS BELOW IF THEY EXIST --}}
 
 {{#if artist.artistEvents.length}}
-
             {{!-- REFERENCES EVENT OBJECT --}}
             {{#each artist.artistEvents}}
-
-                <h4> Next Concerts: {{venue.location }}</h4> {{!-- change artist call --}}
+                <h4> Next Concerts: {{venue.location }}</h4>
                 <h5> Date: {{date datetime "DD/MM/YYYY,HH:mm" }}</h5>
-
-                    {{#if offers.length}}
-
-                        {{!-- {{#each offer}} --}}
-
-                          <h5> Tickets: <a href="{{ offers.0.url }}">{{offers.0.status }}</a> </h5> 
-
-                        {{!-- {{/each}} --}}
-                    {{else}}
-
-                        {{!-- <h5>No Info Available on Tickets</h5> --}}
+                    {{#if offers.length}}                        
+                          <h5> Tickets: <a href="{{ offers.0.url }}">{{offers.0.status }}</a> </h5>                         
+                    {{else}}         
                         <h5>No Tickets Available</h5>
-
                     {{/if}}
-
-
             {{/each}}
-
       {{else}}
       <h1>No tours available</h1>
 {{/if}}
