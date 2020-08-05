@@ -36,6 +36,11 @@ const schema = new mongoose.Schema(
       enum: [0, 1], // 0 = 'confirmation pending' \ 1 = 'active'
       default: 0
     },
+    createdFavourites: {
+      type: Boolean,
+      enum: [false, true],
+      default: false
+    },
     confirmationToken: {
       type: String
     }
