@@ -16,6 +16,13 @@ $light-color: rgb(255, 254, 241);
   font-weight: bold;
 }
 
+.center-h {
+  margin: 0 auto;
+
+  display: flex;
+  justify-content: center;
+}
+
 .genres {
   margin-bottom: 2em;
 }

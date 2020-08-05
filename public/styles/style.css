@@ -4,6 +4,11 @@
 .bold {
   font-weight: bold; }
 
+.center-h {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center; }
+
 .genres {
   margin-bottom: 2em; }
 
