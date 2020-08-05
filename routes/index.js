@@ -118,7 +118,6 @@ router.post('/favourites-add', routeGuard, (req, res, next) => {
       next(error);
     });
 });
-
 // -------- END TESTING FAVOURITES -----------
 
 // -------- START SINGLE ARTIST PAGE ------------
