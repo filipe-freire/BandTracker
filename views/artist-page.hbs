@@ -19,7 +19,7 @@
                 <h4 class="bold"> Location: <span class="fw-regular">{{venue.location }}</span></h4>
                 <h5 class="bold"> Date: <span class="fw-regular">{{date datetime "DD/MM/YYYY,HH:mm" }}</span></h5>
                     {{#if offers.length}}                        
-                          <h5 class="tickets"> Tickets: <a class="tickets tickets-available"href="{{ offers.0.url }}">{{offers.0.status }}</a> </h5><br>             
+                          <h5 class="tickets"> Tickets: <a class="tickets tickets-available" href="{{ offers.0.url }}" target="_blank">{{offers.0.status }}</a> </h5><br>             
                     {{else}}         
                         <h5>No Tickets Available</h5><br>
                     {{/if}}
