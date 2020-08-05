@@ -209,7 +209,7 @@ router.get('/', (req, res, next) => {
   res.render('index', { title: 'BandTracker' });
 });
 
-router.get('/private', routeGuard, (req, res, next) => {
+router.get('/private', routeGuardDefault, (req, res, next) => {
   res.render('private');
 });
 
