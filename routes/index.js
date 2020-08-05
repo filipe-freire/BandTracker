@@ -29,13 +29,17 @@ const upload = multer({ storage });
 spotifyApi
   .clientCredentialsGrant()
   .then(data => spotifyApi.setAccessToken(data.body['access_token']))
-  .catch(error => console.log('Something went wrong when retrieving an access token', error));
+  .catch(error =>
+    console.log('Something went wrong when retrieving an access token', error)
+  );
 
 // ----------- START OF TESTING BANDSINTOWN API -------------
 
 router.get('/bands-in-town', (req, res, next) => {
   axios
-    .get(`https://rest.bandsintown.com/artists/Kendrick%20Lamar?app_id=${bandsInTownKey}`)
+    .get(
+      `https://rest.bandsintown.com/artists/Kendrick%20Lamar?app_id=${bandsInTownKey}`
+    )
     .then(results => {
       console.log(results.data);
       res.render('bands-in-town', { searchResult: results.data });
@@ -63,9 +67,14 @@ router.get('/bands-in-town/events', (req, res, next) => {
 
 // ----------- START TESTING FAVOURITES -------------
 
-router.get('/favourites-creation', routeGuardDefault, routeGuardFavourites, (req, res) => {
-  res.render('favourites-creation');
-});
+router.get(
+  '/favourites-creation',
+  routeGuardDefault,
+  routeGuardFavourites,
+  (req, res) => {
+    res.render('favourites-creation');
+  }
+);
 
 router.post('/favourites-creation', (req, res, next) => {
   const { artistName } = req.body;
@@ -112,7 +121,10 @@ router.post('/favourites-add', routeGuard, (req, res, next) => {
   console.log(artistNameArr);
   const userId = req.user._id;
 
-  Favourites.findOneAndUpdate({ creator: userId }, { $push: { artistName: artistNameArr } })
+  Favourites.findOneAndUpdate(
+    { creator: userId },
+    { $push: { artistName: artistNameArr } }
+  )
     .then(res.redirect('/favourites-display'))
     .catch(error => {
       next(error);
@@ -154,7 +166,9 @@ router.get('/artist/:id', routeGuard, (req, res, next) => {
         return res.render('artist-page', { artist });
       }
     })
-    .catch(err => console.log('The error while searching artists occurred: ', err));
+    .catch(err =>
+      console.log('The error while searching artists occurred: ', err)
+    );
 });
 
 // -------- ENDING SINGLE ARTIST PAGE ------------
@@ -170,7 +184,9 @@ router.get('/artist-search', (req, res) => {
 
       res.render('artist-search-results', { artists: data.body.artists.items });
     })
-    .catch(err => console.log('The error while searching artists occurred: ', err));
+    .catch(err =>
+      console.log('The error while searching artists occurred: ', err)
+    );
 });
 
 // PREDICTHQ API - GET INFO OF ONLY CONCERTS & TOUR DATES
@@ -201,28 +217,33 @@ router.get('/edit', routeGuard, (req, res, next) => {
   res.render('edit');
 });
 
-router.post('/edit', upload.single('profilePicture'), routeGuard, (req, res, next) => {
-  const id = req.session.user;
-  const { name, email } = req.body;
+router.post(
+  '/edit',
+  upload.single('profilePicture'),
+  routeGuard,
+  (req, res, next) => {
+    const id = req.session.user;
+    const { name, email } = req.body;
 
-  let data;
+    let data;
 
-  if (req.file) {
-    const profilePicture = req.file.path;
-    data = { name, email, profilePicture };
-  } else {
-    data = { name, email };
+    if (req.file) {
+      const profilePicture = req.file.path;
+      data = { name, email, profilePicture };
+    } else {
+      data = { name, email };
+    }
+
+    User.findByIdAndUpdate(id, data)
+      .then(() => {
+        res.redirect('/private');
+      })
+      .catch(error => {
+        console.log(error);
+        next(error);
+      });
   }
-
-  User.findByIdAndUpdate(id, data)
-    .then(() => {
-      res.redirect('/private');
-    })
-    .catch(error => {
-      console.log(error);
-      next(error);
-    });
-});
+);
 
 router.post('/delete', routeGuard, (req, res, next) => {
   const id = req.session.user;
