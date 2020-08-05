@@ -10,9 +10,10 @@ const favouritesSchema = new mongoose.Schema(
       required: true
     },
     artistName: {
-      type: String,
+      type: [String],
       required: true,
-      unique: true
+      unique: true,
+      trim: true
     }
   },
   {

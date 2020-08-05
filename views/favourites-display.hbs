@@ -1,7 +1,10 @@
 <h1> {{user.name}}'s Favourite Artists</h1>
 
 {{#each favourite }}
-
-<h3> {{ artistName }} </h1>
+    <ul>
+      <li>
+        <a href="/artist-search?term={{artistName}}">{{artistName}}</a> 
+      </li>
+    </ul>
 
 {{/each }}
