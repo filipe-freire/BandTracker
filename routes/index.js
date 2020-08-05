@@ -102,7 +102,7 @@ router.get('/artist/:id', routeGuard, (req, res, next) => {
     .then(data => {
       //console.log('The received data from the API: ', data.body);
       spotifyData = data;
-      console.log(spotifyData.body.name);
+      //console.log(spotifyData.body.name);
       const normalizedTerm = spotifyData.body.name.split(' ').join('%20');
 
       return axios.get(
@@ -112,13 +112,18 @@ router.get('/artist/:id', routeGuard, (req, res, next) => {
     .then(response => {
       const events = response.data;
       console.log(events);
-      console.log(events[0].artist.name === spotifyData.body.name);
+      // console.log(events[0].artist.name === spotifyData.body.name);
+      const artist = {
+        spotifyData: spotifyData.body,
+        artistEvents: events
+      };
 
-      if (events[0].artist.name == spotifyData.body.name) {
-        const artist = {
-          spotifyData: spotifyData.body,
-          artistEvents: events
-        };
+      if (events.length) {
+        if (events[0].artist.name == spotifyData.body.name) {
+          console.log(artist.artistEvents);
+          return res.render('artist-page', { artist });
+        }
+      } else {
         return res.render('artist-page', { artist });
       }
     })
