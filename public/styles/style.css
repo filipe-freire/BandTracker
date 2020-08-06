@@ -48,7 +48,8 @@ footer {
     margin: 0 auto; }
 
 ul {
-  list-style: '\1F3B5'; }
+  list-style: '\1F3B5';
+  list-style-position: inside; }
   ul li {
     padding-left: 0.5em;
     font-weight: 700; }
@@ -84,6 +85,31 @@ ul {
   left: 0;
   background: linear-gradient(to bottom, rgba(26, 38, 196, 0.623) 0%, rgba(28, 31, 9, 0.815) 100%);
   position: absolute; }
+
+.sign-up-form label {
+  margin: 0 auto;
+  font-size: 1.5em;
+  padding-bottom: 0.5rem; }
+
+.sign-up-form input {
+  width: 100%;
+  border-radius: 15px; }
+
+.sign-up-form input + label {
+  margin-top: 1em; }
+
+.sign-up-form:last-child {
+  margin-top: 1em; }
+
+.sign-up-form button {
+  margin-top: 2em;
+  letter-spacing: 0.2em;
+  font-size: 1.2em;
+  transition: 0.1s; }
+
+.sign-up-form button:hover {
+  background-color: #ff642c;
+  color: #1d1a1a; }
 
 .content {
   z-index: 2;
@@ -206,5 +232,10 @@ input:valid {
   nav .nav--link,
   nav button {
     display: none; } }
+
+@media (min-width: 400px) {
+  .sign-up-form input {
+    margin: 0 auto;
+    max-width: 400px; } }
 
 /*# sourceMappingURL=style.css.map */

@@ -3,6 +3,7 @@ $grey: hsla(0, 0, 75%, 0.5);
 $dark-color: rgb(29, 26, 26);
 $secondary-dark-color: rgb(29, 23, 23);
 $light-color: rgb(255, 254, 241);
+$accent: rgb(255, 100, 44);
 
 * {
   &,
@@ -77,6 +78,7 @@ footer {
 
 ul {
   list-style: '\1F3B5';
+  list-style-position: inside;
 
   li {
     padding-left: 0.5em;
@@ -125,6 +127,41 @@ ul {
     rgba(28, 31, 9, 0.815) 100%
   ); // CHANGE GRADIENT TO TEST BATTERN IN BODY
   position: absolute;
+}
+
+// end of background video
+
+.sign-up-form {
+  label {
+    margin: 0 auto;
+    font-size: 1.5em;
+    padding-bottom: 0.5rem;
+  }
+
+  input {
+    width: 100%;
+    border-radius: 15px;
+  }
+
+  input + label {
+    margin-top: 1em;
+  }
+
+  &:last-child {
+    margin-top: 1em;
+  }
+
+  button {
+    margin-top: 2em;
+    letter-spacing: 0.2em;
+    font-size: 1.2em;
+    transition: 0.1s;
+  }
+
+  button:hover {
+    background-color: $accent;
+    color: $dark-color;
+  }
 }
 
 .content {
@@ -291,6 +328,15 @@ input:valid {
     .nav--link,
     button {
       display: none;
+    }
+  }
+}
+
+@media (min-width: 400px) {
+  .sign-up-form {
+    input {
+      margin: 0 auto;
+      max-width: 400px;
     }
   }
 }
