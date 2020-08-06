@@ -172,6 +172,8 @@ ul {
   }
 }
 
+// HAMBURGUER MENU
+
 // END OF CUSTOM STYLING
 
 body {
@@ -196,6 +198,10 @@ a {
 }
 
 nav {
+  .logo {
+    display: none;
+  }
+
   position: sticky;
   top: 0;
   z-index: 3;
@@ -204,9 +210,14 @@ nav {
   color: $light-color;
   padding: 0 2em;
   display: flex;
+
+  form {
+    max-height: 1em;
+  }
+
   a,
   button {
-    padding: 1em 0 0.2em;
+    padding: 1em 0;
     border: 0;
     &:not(:last-child) {
       margin-right: 1em;
@@ -268,4 +279,17 @@ input:invalid:required {
 input:valid {
   border: 2px solid black;
   background-color: rgb(246, 255, 246);
+}
+
+@media (max-width: 650px) {
+  nav {
+    .logo {
+      display: inline-block;
+    }
+
+    .nav--link,
+    button {
+      display: none;
+    }
+  }
 }

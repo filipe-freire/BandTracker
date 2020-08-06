@@ -138,9 +138,13 @@ nav {
   color: #fffef1;
   padding: 0 2em;
   display: flex; }
+  nav .logo {
+    display: none; }
+  nav form {
+    max-height: 1em; }
   nav a,
   nav button {
-    padding: 1em 0 0.2em;
+    padding: 1em 0;
     border: 0; }
     nav a:not(:last-child),
     nav button:not(:last-child) {
@@ -194,5 +198,12 @@ input:invalid:required {
 input:valid {
   border: 2px solid black;
   background-color: #f6fff6; }
+
+@media (max-width: 650px) {
+  nav .logo {
+    display: inline-block; }
+  nav .nav--link,
+  nav button {
+    display: none; } }
 
 /*# sourceMappingURL=style.css.map */
