@@ -98,8 +98,6 @@ router.post('/favourites-creation', (req, res, next) => {
 });
 
 router.get('/favourites-display', routeGuard, (req, res, next) => {
-  //const user = req.user;
-
   Favourites.find()
     .then(data => {
       console.log(data);
@@ -130,6 +128,7 @@ router.post('/favourites-add', routeGuard, (req, res, next) => {
       next(error);
     });
 });
+
 // -------- END TESTING FAVOURITES -----------
 
 // -------- START SINGLE ARTIST PAGE ------------
@@ -192,6 +191,7 @@ router.get('/artist-search', (req, res) => {
 // PREDICTHQ API - GET INFO OF ONLY CONCERTS & TOUR DATES
 router.get('/show-events', (req, res) => {
   const term = req.query.term;
+  console.log(term);
   const normalizedTerm = term.split(' ').join('%20');
 
   axios
