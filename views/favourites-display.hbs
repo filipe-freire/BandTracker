@@ -7,12 +7,13 @@
     <ul class="display-favourites">
       {{#each artistName}}
       <li>
-        <a href="/artist-search?term={{this}}">{{this}}</a> 
+        <a class="fav-artist--name" href="/artist-search?term={{this}}">{{this}}</a> 
+        <form method="POST" action="/favourites-delete" class="delete-tracked-artists">
+          <input id="delete-artist" name="deleteArtistName" value="{{this}}">
+          <button>Unfollow artist</button>
+        </form>
       </li>
-      <form method="POST" action="/favourites-delete" class="delete-tracked-artists">
-      <input id="delete-artist" name="deleteArtistName" value="{{this}}">
-      <button>Unfollow artist</button>
-      </form>
+      
       {{/each}}
   
 {{/each }}  

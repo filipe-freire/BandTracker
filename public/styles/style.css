@@ -80,6 +80,15 @@
       color: #e9de4a;
       cursor: pointer; }
 
+.feed .artists-list {
+  max-width: 52em;
+  margin: 0 auto; }
+  .feed .artists-list h3 {
+    margin-top: 1em; }
+
+.feed ul {
+  padding-left: 0; }
+
 .feed .img-artist-search {
   margin-top: 2em; }
 
@@ -115,10 +124,17 @@
 
 .img-artist-search {
   border-radius: 10px;
-  filter: drop-shadow(0 0 0.75rem rgba(24, 202, 210, 0.68)); }
+  filter: drop-shadow(0 0 0.75rem #8f5300); }
 
 .display-favourites {
   padding-left: 0; }
+  .display-favourites .fav-artist--name {
+    font-size: 2em; }
+  .display-favourites form {
+    display: inline;
+    margin-left: 1em; }
+    .display-favourites form button {
+      padding: 0.5em 1em; }
 
 .sign-up-form label,
 .sign-in-form label {
@@ -180,6 +196,7 @@ nav {
   display: flex; }
   nav .logo {
     font-family: "Tillana", monospace;
+    color: #f58f00;
     letter-spacing: 0.3em; }
   nav form {
     max-height: 1em; }

@@ -47,7 +47,7 @@ router.post('/sign-up', upload.single('profilePicture'), (req, res, next) => {
 
   // Confirmation Email
   const confirmationToken = generateRandomToken(10);
-  const confirmationUrl = `http://localhost:3000/authentication/confirm-email?token=${confirmationToken}`;
+  const confirmationUrl = `http://localhost:3000/authentication/confirm-email?token=${confirmationToken}`; // `https://bandtrackerapp.herokuapp.com/authentication/confirm-email?token=${confirmationToken}`
 
   bcryptjs
     .hash(password, 10)

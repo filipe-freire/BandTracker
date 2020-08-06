@@ -93,6 +93,19 @@
 }
 
 .feed {
+  .artists-list {
+    max-width: 52em;
+    margin: 0 auto;
+
+    h3 {
+      margin-top: 1em;
+    }
+  }
+
+  ul {
+    padding-left: 0;
+  }
+
   .img-artist-search {
     margin-top: 2em;
   }
