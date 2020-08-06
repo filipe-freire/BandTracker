@@ -10,13 +10,21 @@
   <body>
     <nav>
       <a href="/" class="logo">BandTracker</a>
-
+<div id="myNav" class="overlay">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <div class="overlay-content">
+    <a href="#">My Favourite Artists</a>
+    <a href="#">Add Favourite Band</a>
+    <a href="#">Profile</a>
+    <a href="#">Sign Out</a>
+  </div>
+</div>
         {{#if user.status}}
         <a class="nav--link" href="/favourites-display">My Favourite Artists</a><br>
         <a class="nav--link" href="/favourites-add">Add Favourite Band</a>
         {{/if}}
         {{#if user}}
-          <a class="nav--link" href="/private">{{user.name}}'s Profile</a>
+          <a class="nav--link" href="/private">Profile</a>
           <form action="/authentication/sign-out" method="POST">
           <button>Sign Out</button>
         </form>
@@ -24,6 +32,7 @@
         <a class="nav--link" href="/authentication/sign-in">Sign In</a>
         <a class="nav--link" href="/authentication/sign-up">Sign Up</a>
       {{/if}}
+      <div class="hamburguer" onclick="openNav()">&#9776;</div>
     </nav>
        {{{body}}} 
      

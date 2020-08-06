@@ -78,7 +78,7 @@ router.post('/favourites-creation', (req, res, next) => {
   })
     .then(
       User.findByIdAndUpdate(userId, { createdFavourites: true })
-        .then(res.redirect('/'))
+        .then(res.redirect('/private'))
         .catch(error => {
           next(error);
         })
@@ -216,7 +216,6 @@ router.get('/artist-search', (req, res) => {
     .catch(err => console.log('The error while searching artists occurred: ', err));
 });
 
-// PREDICTHQ API - GET INFO OF ONLY CONCERTS & TOUR DATES
 router.get('/show-events', (req, res) => {
   const term = req.query.term;
   console.log(term);
@@ -243,7 +242,7 @@ router.get('/', async (req, res, next) => {
     //first get a list of the users favoriets
     //console.log(user);
     const favouritesObject = await Favourites.find({ creator: user }).exec();
-    //console.log(favouritesObject);
+    // console.log(favouritesObject);
     const favouritsArray = favouritesObject[0].artistName;
     //console.log('favouritsArray', favouritsArray);
 

@@ -106,10 +106,10 @@ router.post('/sign-up', upload.single('profilePicture'), (req, res, next) => {
 
 router.get('/confirm-email', (req, res, next) => {
   const token = req.query.token;
-  console.log(token);
+  //console.log(token);
   User.findOneAndUpdate({ confirmationToken: token }, { status: 1 }, { new: true })
     .then(user => {
-      console.log(user);
+      //console.log(user);
       res.render('confirmation', { user }); //render confirmation page
     })
     .catch(error => console.log(error));
