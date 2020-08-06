@@ -130,15 +130,21 @@ ul {
   line-height: 1.6;
 
   .card {
-    background-color: #051035a8;
+    background-color: #051035b2;
     padding: 2em 3em;
     border-radius: 15px;
-    border: 1px groove whitesmoke;
+    border: 1px groove rgba(223, 233, 88, 0.685);
     text-align: center;
+
+    p {
+      font-style: italic;
+      font-size: 1.5em;
+    }
 
     .btn {
       background: black;
       border: 2px groove $light-color;
+      border-radius: 10px;
       font-weight: bold;
       font-size: 1.5em;
       padding: 0.5em 0;
@@ -178,7 +184,7 @@ nav {
 
   background-color: $dark-color;
   color: $light-color;
-  padding: 0 2em 1em;
+  padding: 0 2em;
   display: flex;
   a,
   button {

@@ -82,6 +82,12 @@ ul {
   background: linear-gradient(to bottom right, rgba(26, 38, 196, 0.623) 0%, rgba(78, 85, 17, 0.65) 100%);
   position: absolute; }
 
+.warning-msg {
+  padding: 1em;
+  text-align: center;
+  color: #df3333;
+  background-color: #2a2626; }
+
 .content {
   z-index: 2;
   color: #fffef1;
@@ -91,14 +97,18 @@ ul {
   align-items: center;
   line-height: 1.6; }
   .content .card {
-    background-color: #051035a8;
+    background-color: #051035b2;
     padding: 2em 3em;
     border-radius: 15px;
-    border: 1px groove whitesmoke;
+    border: 1px groove rgba(223, 233, 88, 0.685);
     text-align: center; }
+    .content .card p {
+      font-style: italic;
+      font-size: 1.5em; }
     .content .card .btn {
       background: black;
       border: 2px groove #fffef1;
+      border-radius: 10px;
       font-weight: bold;
       font-size: 1.5em;
       padding: 0.5em 0; }
@@ -125,7 +135,7 @@ nav {
   z-index: 3;
   background-color: #1d1a1a;
   color: #fffef1;
-  padding: 0 2em 1em;
+  padding: 0 2em;
   display: flex; }
   nav a,
   nav button {
