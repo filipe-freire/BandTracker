@@ -108,6 +108,31 @@ router.get('/favourites-display', routeGuard, (req, res, next) => {
     });
 });
 
+router.post('/favourites-delete', routeGuard, (req, res, next) => {
+  //artist to be deleted
+  const { deleteArtistName } = req.body;
+  console.log(deleteArtistName);
+  //we need to find which artsits is the user following
+  const userId = req.user;
+  Favourites.find({ creator: userId })
+    .then(followingBands => {
+      //delete or filter the bands that are not the one that the user wants to delete
+      const newFollowingBands = followingBands[0].artistName.filter(
+        band => band !== deleteArtistName
+      );
+      console.log(newFollowingBands);
+      return Favourites.findOneAndUpdate(
+        { creator: userId },
+        { artistName: newFollowingBands },
+        { new: true }
+      );
+    })
+    .then(updatedFollowingBands => {
+      res.redirect('/favourites-display');
+    })
+    .catch(error => next(error));
+});
+
 router.get('/favourites-add', routeGuard, (req, res, next) => {
   res.render('favourites-add');
 });
