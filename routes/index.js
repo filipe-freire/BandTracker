@@ -91,7 +91,7 @@ router.post('/favourites-creation', (req, res, next) => {
 router.get('/favourites-display', routeGuard, (req, res, next) => {
   Favourites.find()
     .then(data => {
-      console.log(data);
+      // console.log(data);
       res.render('favourites-display', { favourite: data });
     })
     .catch(error => {
@@ -102,16 +102,18 @@ router.get('/favourites-display', routeGuard, (req, res, next) => {
 router.post('/favourites-delete', routeGuard, (req, res, next) => {
   //artist to be deleted
   const { deleteArtistName } = req.body;
-  console.log(deleteArtistName);
+  //console.log(deleteArtistName);
   //we need to find which artsits is the user following
   const userId = req.user;
+
   Favourites.find({ creator: userId })
     .then(followingBands => {
       //delete or filter the bands that are not the one that the user wants to delete
+      //console.log(followingBands);
       const newFollowingBands = followingBands[0].artistName.filter(
-        band => band !== deleteArtistName
+        artist => artist !== deleteArtistName
       );
-      console.log(newFollowingBands);
+      // console.log(newFollowingBands);
       return Favourites.findOneAndUpdate(
         { creator: userId },
         { artistName: newFollowingBands },
@@ -133,11 +135,24 @@ router.post('/favourites-add', routeGuard, (req, res, next) => {
   console.log(artistNameArr);
   const userId = req.user._id;
 
-  Favourites.findOneAndUpdate({ creator: userId }, { $push: { artistName: artistNameArr } })
-    .then(res.redirect('/favourites-display'))
-    .catch(error => {
-      next(error);
-    });
+  Favourites.find({ creator: userId })
+    .then(followingBands => {
+      //delete or filter the bands that are not the one that the user wants to delete
+      //console.log(followingBands);
+      const favouriteBands = followingBands[0].artistName;
+      console.log(favouriteBands);
+
+      if (!favouriteBands.includes(artistName)) {
+        Favourites.findOneAndUpdate({ creator: userId }, { $push: { artistName: artistNameArr } })
+          .then(res.redirect('/favourites-display'))
+          .catch(error => {
+            next(error);
+          });
+      } else {
+        res.render('favourites-add');
+      }
+    })
+    .catch(error => next(error));
 });
 
 // -------- END TESTING FAVOURITES -----------
