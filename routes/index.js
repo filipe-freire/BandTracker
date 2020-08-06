@@ -141,8 +141,9 @@ router.post('/favourites-add', routeGuard, (req, res, next) => {
       //console.log(followingBands);
       const favouriteBands = followingBands[0].artistName;
       console.log(favouriteBands);
-
-      if (!favouriteBands.includes(artistName)) {
+      if (artistName.trim().length === 0) {
+        return res.render('favourites-add');
+      } else if (!favouriteBands.includes(artistName)) {
         Favourites.findOneAndUpdate({ creator: userId }, { $push: { artistName: artistNameArr } })
           .then(res.redirect('/favourites-display'))
           .catch(error => {
