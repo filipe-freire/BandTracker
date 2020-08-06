@@ -142,7 +142,9 @@ router.post('/favourites-add', routeGuard, (req, res, next) => {
       const favouriteBands = followingBands[0].artistName;
       console.log(favouriteBands);
       if (artistName.trim().length === 0) {
-        return res.render('favourites-add');
+        return res.render('favourites-add', {
+          error: 'Please write the name of an artist or band'
+        });
       } else if (!favouriteBands.includes(artistName)) {
         Favourites.findOneAndUpdate({ creator: userId }, { $push: { artistName: artistNameArr } })
           .then(res.redirect('/favourites-display'))
@@ -150,7 +152,7 @@ router.post('/favourites-add', routeGuard, (req, res, next) => {
             next(error);
           });
       } else {
-        res.render('favourites-add');
+        res.render('favourites-add', { error: 'Artist already added' });
       }
     })
     .catch(error => next(error));
@@ -229,6 +231,10 @@ router.get('/show-events', (req, res) => {
 
 // NORMAL APP ROUTING
 router.get('/', (req, res, next) => {
+  console.log(req.body);
+
+  // if (req.user.status) {  }
+
   res.render('index', { title: 'BandTracker' });
 });
 
