@@ -1,33 +1,17 @@
-@import 'private';
+@import 'config';
+@import 'utilites';
 @import 'index';
+@import 'private';
+@import 'artist-page';
+@import 'artist-search-results';
+@import 'favourites-display';
+@import 'sign-in-up';
 
-// --------- START Custom Variables ------------
-
-$font-sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-$grey: hsla(0, 0, 75%, 0.5);
-$dark-color: rgb(29, 26, 26);
-$secondary-dark-color: rgb(29, 23, 23);
-$light-color: rgb(255, 254, 241);
-$accent: rgb(255, 100, 44);
-
-// --------- END Custom Variables ------------
 * {
   &,
   &:before,
   &:after {
     box-sizing: border-box;
-  }
-}
-
-// START OF CUSTOM STYLING
-
-.display-favourites {
-  padding-left: 0;
-}
-
-form {
-  input {
-    color: $secondary-dark-color;
   }
 }
 
@@ -37,200 +21,12 @@ html {
   scroll-behavior: smooth;
 }
 
-.bold {
-  font-weight: bold;
-}
-
-.center-h {
-  margin: 0 auto;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.lh-1 {
-  line-height: 1.5em;
-}
-
-.img-artist-search {
-  border-radius: 10px;
-  filter: drop-shadow(0 0 0.75rem rgba(68, 23, 94, 0.589));
-}
-
-.genres {
-  margin-bottom: 2em;
-}
-
-.tickets {
-  font-weight: bold;
-}
-
-.fw-regular {
-  font-weight: normal;
-}
-
-.tickets-available {
-  font-weight: bold;
-  color: #007710;
-}
-footer {
-  background-color: #0b0c0b;
-  color: $light-color;
-
-  display: flex;
-  padding: 1em 0;
-  p {
-    margin: 0 auto;
-  }
-}
-
-ul {
-  list-style: '\1F3B5';
-  list-style-position: inside;
-
-  li {
-    padding-left: 0.5em;
-    font-weight: 700;
-  }
-}
-
-// start of background video
-
-.background-video {
-  height: 95vh;
-  display: grid;
-}
-
-.video-container {
-  position: absolute;
-
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  background: var(--primary-color);
-}
-
-.video-container video {
-  min-width: 100%;
-  min-height: 100%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  object-fit: cover;
-}
-
-.video-container:after {
-  content: '';
-  z-index: 1;
-  height: 100%;
-  width: 100%;
-  top: 0;
-  left: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(26, 38, 196, 0.623) 0%,
-    rgba(28, 31, 9, 0.815) 100%
-  ); // CHANGE GRADIENT TO TEST BATTERN IN BODY
-  position: absolute;
-}
-
-// end of background video
-
-.sign-up-form,
-.sign-in-form {
-  label {
-    margin: 0 auto;
-    font-size: 1.5em;
-    padding-bottom: 0.5rem;
-  }
-
-  input {
-    width: 100%;
-    border-radius: 15px;
-  }
-
-  input + label {
-    margin-top: 1em;
-  }
-
-  &:last-child {
-    margin-top: 1em;
-  }
-
-  button {
-    margin-top: 2em;
-    letter-spacing: 0.2em;
-    font-size: 1.2em;
-    transition: 0.1s;
-  }
-
-  button:hover {
-    background-color: $accent;
-    color: $dark-color;
-  }
-}
-
-.content {
-  z-index: 2;
-  color: $light-color;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  line-height: 1.6;
-
-  .card {
-    background-color: #051035b2;
-    width: 100%;
-    padding: 2em 3em;
-    border-radius: 15px;
-    //border: 1px groove rgba(223, 233, 88, 0.685);
-    text-align: center;
-
-    p {
-      font-style: italic;
-      font-size: 1.5em;
-    }
-
-    // .call-to-action {
-    //   font-size: 1em;
-    // }
-
-    .btn {
-      max-width: 500px;
-      margin: 0 auto;
-      padding: 0.5em 1em;
-
-      background: black;
-      border: 2px groove $light-color;
-      border-radius: 10px;
-      font-weight: bold;
-      font-size: 1.5em;
-    }
-
-    .btn:hover {
-      color: rgb(233, 222, 74);
-      cursor: pointer;
-    }
-  }
-}
-
-// HAMBURGUER MENU
-
-// END OF CUSTOM STYLING
-
 body {
-  background-color: rgb(29, 25, 25); // TESTING BACKGROUND COLOR PATTERN
+  background-color: $dark-color; // TESTING BACKGROUND COLOR PATTERN
   color: $light-color;
 
   // max-width: 52em;
   margin: 0 auto;
-  font-family: sans-serif;
   font-family: $font-sans;
   line-height: 2;
 
@@ -240,16 +36,11 @@ body {
   }
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
 nav {
   .logo {
-    display: none;
+    font-family: $font-logo;
+    letter-spacing: 0.3em;
   }
-
   position: sticky;
   top: 0;
   z-index: 3;
@@ -276,6 +67,39 @@ nav {
   }
 }
 
+img {
+  width: 100%;
+  max-width: 100%;
+}
+
+form {
+  input {
+    color: $secondary-dark-color;
+  }
+
+  display: flex;
+  flex-direction: column;
+
+  #delete-artist {
+    display: none;
+  }
+}
+
+ul {
+  list-style: '\1F3B5';
+  list-style-position: inside;
+
+  li {
+    padding-left: 0.5em;
+    font-weight: 700;
+  }
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
 h1,
 h2,
 h3,
@@ -287,17 +111,14 @@ p {
   }
 }
 
-img {
-  width: 100%;
-  max-width: 100%;
-}
+footer {
+  background-color: #0b0c0b;
+  color: $light-color;
 
-form {
   display: flex;
-  flex-direction: column;
-
-  #delete-artist {
-    display: none;
+  padding: 1em 0;
+  p {
+    margin: 0 auto;
   }
 }
 
@@ -307,12 +128,18 @@ select,
 button,
 .btn {
   padding: 1em;
-  border: 1px solid $grey;
+  border: 2px solid $accent;
   border-radius: 0;
   margin-bottom: 1em;
   font: inherit;
   color: inherit;
   background-color: transparent;
+  transition: 0.2s;
+}
+
+.btn,
+button:hover {
+  background-color: $accent;
 }
 
 textarea {
