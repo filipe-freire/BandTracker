@@ -24,12 +24,13 @@ app.set('views', join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 hbs.registerHelper('date', helperDate);
 
-app.use(serveFavicon(join(__dirname, 'public/images', 'favicon.ico')));
+app.use(serveFavicon(join(__dirname, 'public/images', 'logo-bt.png')));
 app.use(
   sassMiddleware({
     src: join(__dirname, 'public'),
     dest: join(__dirname, 'public'),
-    outputStyle: process.env.NODE_ENV === 'development' ? 'nested' : 'compressed',
+    outputStyle:
+      process.env.NODE_ENV === 'development' ? 'nested' : 'compressed',
     force: process.env.NODE_ENV === 'development',
     sourceMap: true
   })
