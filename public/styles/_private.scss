@@ -1,0 +1,14 @@
+.flex-row {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+}
+
+.flex-column {
+  line-height: 2em;
+  margin-left: 3em;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}

@@ -18,7 +18,19 @@
 
 {{!-- Start of Personal Feed --}}
 <section class="feed">
-  <h1> {{shows.Metallica.0.id}} </h1>
+
+{{#each shows}}
+<ul>
+  <div class="artists-list">
+  {{#each this}}
+{{artist.name}}
+<li>{{date datetime "DD/MM/YYYY,HH:mm"}},@ {{venue.name}},{{venue.location}},{{venue.country}}</li>
+<p>{{venue.longitude}},{{venue.latitude}}</p>
+{{/each}}
+</div>
+</ul>
+{{/each}}
+  
 </section>
 
 {{!-- End of Personal Feed --}}

@@ -1,6 +1,19 @@
 .display-favourites {
   padding-left: 0; }
 
+.flex-row {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center; }
+
+.flex-column {
+  line-height: 2em;
+  margin-left: 3em;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; }
+
 *, *:before, *:after {
   box-sizing: border-box; }
 
@@ -41,19 +54,6 @@ html {
 .tickets-available {
   font-weight: bold;
   color: #007710; }
-
-.flex-row {
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: center; }
-
-.flex-column {
-  line-height: 2em;
-  margin-left: 3em;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start; }
 
 footer {
   background-color: #0b0c0b;

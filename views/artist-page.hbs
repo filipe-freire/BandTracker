@@ -1,7 +1,7 @@
 <div class="container">
 <h1 class="center-h">{{ artist.spotifyData.name }}'s Page</h1>
 <img class="center-h" src="{{artist.spotifyData.images.0.url}}" alt="" style="width: 300px;">
-
+<a method="POST"href="/favourites-add">Follow this artist</a>
 <h3 class="bold"> Followers on Spotify: <span class="fw-regular">{{ artist.spotifyData.followers.total }}</span></h3>
 
 <h4 class="bold">Genres: </h4>
