@@ -9,20 +9,20 @@
   </head>
   <body>
     <nav>
-      <a href="/">Home</a>
+      <a href="/"><img src="#" alt="BandTracker"></a>
 
         {{#if user.status}}
-        <a href="/favourites-display">My Favourite Artists</a><br>
-        <a href="/favourites-add">Add Favourite Band</a>
+        <a class="nav--link" href="/favourites-display">My Favourite Artists</a><br>
+        <a class="nav--link" href="/favourites-add">Add Favourite Band</a>
         {{/if}}
-         {{#if user}}
-          <a href="/private">{{user.name}}'s Profile</a>
-         <form action="/authentication/sign-out" method="POST">
+        {{#if user}}
+          <a class="nav--link" href="/private">{{user.name}}'s Profile</a>
+          <form action="/authentication/sign-out" method="POST">
           <button>Sign Out</button>
         </form>
         {{else}}
-        <a href="/authentication/sign-in">Sign In</a>
-        <a href="/authentication/sign-up">Sign Up</a>
+        <a class="nav--link" href="/authentication/sign-in">Sign In</a>
+        <a class="nav--link" href="/authentication/sign-up">Sign Up</a>
       {{/if}}
     </nav>
        {{{body}}} 
