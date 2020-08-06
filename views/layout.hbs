@@ -10,25 +10,34 @@
   <body>
     <nav>
       <a href="/" class="logo">BandTracker</a>
-<div id="myNav" class="overlay">
-  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-  <div class="overlay-content">
-    <a href="#">My Favourite Artists</a>
-    <a href="#">Add Favourite Band</a>
-    <a href="#">Profile</a>
-    <a href="#">Sign Out</a>
-  </div>
-</div>
-        {{#if user.status}}
+      <div id="myNav" class="overlay">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <div class="overlay-content">
+          {{#if user.status}}
+          <a href="/favourites-display">My Favourite Artists</a>
+          <a href="/favourites-add">Add Favourite Band</a>
+          {{/if}}
+          {{#if user}}
+          <a href="/private">Profile</a>
+          <form action="/authentication/sign-out" method="POST">
+          <button>Sign Out</button>
+          </form>
+          {{else}}
+          <a href="/authentication/sign-in">Sign In</a>
+          <a href="/authentication/sign-up">Sign Up</a>
+          {{/if}}
+        </div>
+      </div>
+      {{#if user.status}}
         <a class="nav--link" href="/favourites-display">My Favourite Artists</a><br>
         <a class="nav--link" href="/favourites-add">Add Favourite Band</a>
-        {{/if}}
-        {{#if user}}
+      {{/if}}
+      {{#if user}}
           <a class="nav--link" href="/private">Profile</a>
           <form action="/authentication/sign-out" method="POST">
           <button>Sign Out</button>
-        </form>
-        {{else}}
+          </form>
+      {{else}}
         <a class="nav--link" href="/authentication/sign-in">Sign In</a>
         <a class="nav--link" href="/authentication/sign-up">Sign Up</a>
       {{/if}}
