@@ -64,7 +64,20 @@ html {
   font-weight: bold;
   color: #007710;
 }
+.flex-row {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+}
 
+.flex-column {
+  line-height: 2em;
+  margin-left: 3em;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
 footer {
   background-color: #0b0c0b;
   color: $light-color;
@@ -131,7 +144,8 @@ ul {
 
 // end of background video
 
-.sign-up-form {
+.sign-up-form,
+.sign-in-form {
   label {
     margin: 0 auto;
     font-size: 1.5em;
@@ -333,7 +347,8 @@ input:valid {
 }
 
 @media (min-width: 400px) {
-  .sign-up-form {
+  .sign-up-form,
+  .sign-in-form {
     input {
       margin: 0 auto;
       max-width: 400px;

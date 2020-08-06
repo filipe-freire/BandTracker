@@ -4,17 +4,19 @@
 {{/unless}}
 
 <h1 class="center-h lh-1">Your Account</h1>
+<div class="flex-row">
 <h5><strong>Profile Picture</strong>: <br>
 
-<img src="{{user.profilePicture}}" alt="" style="width: 200px;">
+<img src="{{user.profilePicture}}" alt="" style="width: 150px;">
 
 </h5>
+<div class="flex-column">
 <br />
-<h4><strong>Name</strong>: {{user.name}}</h4>
-<br />
-<h4><strong>Email</strong>: {{user.email}}</h4>
-<br />
+<h4><strong>Name</strong>:</h4> <h6>{{user.name}}</h6>
 
+<h4><strong>Email</strong>:</h4> <h6>{{user.email}}</h6>
+</div>
+</div>
 <a href="/favourites-display">My Favourite Artists</a><br>
 {{#if user.status}}
 <a href="/favourites-add">Add Favourite Band</a>

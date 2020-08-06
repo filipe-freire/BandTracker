@@ -39,6 +39,19 @@ html {
   font-weight: bold;
   color: #007710; }
 
+.flex-row {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center; }
+
+.flex-column {
+  line-height: 2em;
+  margin-left: 3em;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; }
+
 footer {
   background-color: #0b0c0b;
   color: #fffef1;
@@ -86,28 +99,34 @@ ul {
   background: linear-gradient(to bottom, rgba(26, 38, 196, 0.623) 0%, rgba(28, 31, 9, 0.815) 100%);
   position: absolute; }
 
-.sign-up-form label {
+.sign-up-form label,
+.sign-in-form label {
   margin: 0 auto;
   font-size: 1.5em;
   padding-bottom: 0.5rem; }
 
-.sign-up-form input {
+.sign-up-form input,
+.sign-in-form input {
   width: 100%;
   border-radius: 15px; }
 
-.sign-up-form input + label {
+.sign-up-form input + label,
+.sign-in-form input + label {
   margin-top: 1em; }
 
-.sign-up-form:last-child {
+.sign-up-form:last-child,
+.sign-in-form:last-child {
   margin-top: 1em; }
 
-.sign-up-form button {
+.sign-up-form button,
+.sign-in-form button {
   margin-top: 2em;
   letter-spacing: 0.2em;
   font-size: 1.2em;
   transition: 0.1s; }
 
-.sign-up-form button:hover {
+.sign-up-form button:hover,
+.sign-in-form button:hover {
   background-color: #ff642c;
   color: #1d1a1a; }
 
@@ -234,7 +253,8 @@ input:valid {
     display: none; } }
 
 @media (min-width: 400px) {
-  .sign-up-form input {
+  .sign-up-form input,
+  .sign-in-form input {
     margin: 0 auto;
     max-width: 400px; } }
 
