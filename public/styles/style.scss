@@ -1,3 +1,7 @@
+@import 'favourites-display';
+
+// --------- START Custom Variables ------------
+
 $font-sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 $grey: hsla(0, 0, 75%, 0.5);
 $dark-color: rgb(29, 26, 26);
@@ -5,6 +9,7 @@ $secondary-dark-color: rgb(29, 23, 23);
 $light-color: rgb(255, 254, 241);
 $accent: rgb(255, 100, 44);
 
+// --------- END Custom Variables ------------
 * {
   &,
   &:before,
@@ -14,6 +19,7 @@ $accent: rgb(255, 100, 44);
 }
 
 // START OF CUSTOM STYLING
+
 form {
   input {
     color: $secondary-dark-color;

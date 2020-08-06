@@ -162,40 +162,43 @@ router.post('/favourites-add', routeGuard, (req, res, next) => {
 
 // -------- START SINGLE ARTIST PAGE ------------
 
-router.get('/artist/:id', routeGuard, (req, res, next) => {
-  const id = req.params.id;
-  let spotifyData;
-  spotifyApi
-    .getArtist(id)
-    .then(data => {
-      //console.log('The received data from the API: ', data.body);
-      spotifyData = data;
-      //console.log(spotifyData.body.name);
-      const normalizedTerm = spotifyData.body.name.split(' ').join('%20');
+router.get(
+  '/artist/:id',
+  /*routeGuard,*/ (req, res, next) => {
+    const id = req.params.id;
+    let spotifyData;
+    spotifyApi
+      .getArtist(id)
+      .then(data => {
+        //console.log('The received data from the API: ', data.body);
+        spotifyData = data;
+        //console.log(spotifyData.body.name);
+        const normalizedTerm = spotifyData.body.name.split(' ').join('%20');
 
-      return axios.get(
-        `https://rest.bandsintown.com/artists/${normalizedTerm}/events?app_id=${bandsInTownKey}&date=upcoming`
-      );
-    })
-    .then(response => {
-      const events = response.data;
-      // console.log(events);
-      const artist = {
-        spotifyData: spotifyData.body,
-        artistEvents: events
-      };
+        return axios.get(
+          `https://rest.bandsintown.com/artists/${normalizedTerm}/events?app_id=${bandsInTownKey}&date=upcoming`
+        );
+      })
+      .then(response => {
+        const events = response.data;
+        // console.log(events);
+        const artist = {
+          spotifyData: spotifyData.body,
+          artistEvents: events
+        };
 
-      if (events.length) {
-        if (events[0].artist.name == spotifyData.body.name) {
-          // console.log(artist.artistEvents);
+        if (events.length) {
+          if (events[0].artist.name == spotifyData.body.name) {
+            // console.log(artist.artistEvents);
+            return res.render('artist-page', { artist });
+          }
+        } else {
           return res.render('artist-page', { artist });
         }
-      } else {
-        return res.render('artist-page', { artist });
-      }
-    })
-    .catch(err => console.log('The error while searching artists occurred: ', err));
-});
+      })
+      .catch(err => console.log('The error while searching artists occurred: ', err));
+  }
+);
 
 // -------- ENDING SINGLE ARTIST PAGE ------------
 
@@ -230,11 +233,25 @@ router.get('/show-events', (req, res) => {
 });
 
 // NORMAL APP ROUTING
-router.get('/', (req, res, next) => {
-  console.log(req.body);
+router.get('/', async (req, res, next) => {
+  const artistTours = {};
+  const user = req.user;
 
-  // if (req.user.status) {  }
+  // if (req.user.status) {
+  //   Favourites.find({ creator: user })
+  //     .then(favouriteObject => {
 
+  //       for (let artist in favouriteObject.artistName) {
+  //         const normalizedArtistName = artist.split(' ').join('%20');
+
+  //         const tours = await axios.get(
+  //           `https://rest.bandsintown.com/artists/${normalizedArtistName}/events?app_id=${bandsInTownKey}&date=upcoming`
+  //         );
+  //       }
+  //     })
+  //     .then(res.render('index', { title: 'BandTracker', eventsData: ??? }))
+  //     .catch(error => next(error));
+  // }
   res.render('index', { title: 'BandTracker' });
 });
 
