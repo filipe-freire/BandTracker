@@ -9,7 +9,9 @@
       <li>
         <a href="/artist-search?term={{this}}">{{this}}</a> 
       </li>
-      <form method="POST">
+      <form method="POST" action="/favourites-delete">
+      <span>hide this with CSS</span>
+      <input name="deleteArtistName" value="{{this}}">
       <button>Unfollow artist</button>
       </form>
       {{/each}}
