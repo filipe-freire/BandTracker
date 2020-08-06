@@ -237,22 +237,27 @@ router.get('/', async (req, res, next) => {
   const artistTours = {};
   const user = req.user;
 
-  // if (req.user.status) {
-  //   Favourites.find({ creator: user })
-  //     .then(favouriteObject => {
+  //if there is a user signed ...
 
-  //       for (let artist in favouriteObject.artistName) {
-  //         const normalizedArtistName = artist.split(' ').join('%20');
+  if (user) {
+    //first get a list of the users favoriets
+    //console.log(user);
+    const favouritesObject = await Favourites.find({ creator: user }).exec();
+    //console.log(favouritesObject);
+    const favouritsArray = favouritesObject[0].artistName;
+    //console.log('favouritsArray', favouritsArray);
 
-  //         const tours = await axios.get(
-  //           `https://rest.bandsintown.com/artists/${normalizedArtistName}/events?app_id=${bandsInTownKey}&date=upcoming`
-  //         );
-  //       }
-  //     })
-  //     .then(res.render('index', { title: 'BandTracker', eventsData: ??? }))
-  //     .catch(error => next(error));
-  // }
-  res.render('index', { title: 'BandTracker' });
+    //iterate through that list and call the api
+    for (let artist of favouritsArray) {
+      const normalizedArtistName = artist.split(' ').join('%20');
+      const tours = await axios.get(
+        `https://rest.bandsintown.com/artists/${normalizedArtistName}/events?app_id=${bandsInTownKey}&date=upcoming`
+      );
+      artistTours[artist] = tours.data;
+    }
+    console.log(artistTours);
+  }
+  res.render('index', { title: 'BandTracker', shows: artistTours });
 });
 
 router.get('/private', routeGuardDefault, (req, res, next) => {
