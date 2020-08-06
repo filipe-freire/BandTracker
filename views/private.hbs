@@ -1,6 +1,7 @@
 <div class="container">
-<p> Please check your email</p>
-{{#if user}}
+  {{#unless user.status}}
+<h4> Please check your email to confirm your account!</h4>
+{{/unless}}
 
 <h1 class="center-h lh-1">Your Account</h1>
 <h5><strong>Profile Picture</strong>: <br>
@@ -25,5 +26,5 @@
   <button>Delete User</button>
 </form>
 {{/if}}
-{{/if}}
+
 </div>

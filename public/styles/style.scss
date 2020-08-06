@@ -263,9 +263,10 @@ textarea {
 
 input:invalid:required {
   border: 2px solid red;
+  background-color: white;
 }
 
 input:valid {
   border: 2px solid black;
-  background-color: rgb(246, 255, 246);
+  background-color: rgb(255, 255, 255);
 }

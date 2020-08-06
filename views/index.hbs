@@ -1,3 +1,4 @@
+{{#unless user}}
 <section class="background-video">
   <div class="video-container">
             <video src="https://www.videvo.net/videvo_files/converted/2016_09/preview/Beach_Party_1.mov41295.webm" autoplay muted loop></video>
@@ -7,12 +8,13 @@
             <div class="card">
               <h1>BandTracker</h1>
               <h2>Never Miss A Concert Again!</h2>
-              <a class="btn">Sign Up Now</a>
+              <a href="/authentication/sign-up" class="btn">Sign Up Now</a>
               <p>or</p>            
               <h3 class="call-to-action">Scroll down for awesomeness!</h3>
             </div>
         </div>
-</section>
+</section> 
+{{/unless}}
 
 <div class="container">
     <h1 class="center-h">{{title}}</h1>
@@ -29,3 +31,4 @@
       <button>Search for an Artist</button>
     </form>
 </div>
+
