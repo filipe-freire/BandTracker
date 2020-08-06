@@ -18,14 +18,23 @@
 
 {{!-- Start of Personal Feed --}}
 <section class="feed">
-
 {{#each shows}}
+<h1 class="center-h">Next Tours</h1>
 <ul>
   <div class="artists-list">
   {{#each this}}
-{{artist.name}}
-<li>{{date datetime "DD/MM/YYYY,HH:mm"}},@ {{venue.name}},{{venue.location}},{{venue.country}}</li>
-<p>{{venue.longitude}},{{venue.latitude}}</p>
+  <a href="/artist-search?term={{artist.name}}">
+    <img src=" {{artist.image_url}} " alt="" class="center-h img-artist-search">
+  </a>
+  <h3 class="center-h">
+  	<a href="/artist-search?term={{artist.name}}">{{artist.name}}</a>
+  </h3>
+  <li class="shows">
+    {{date datetime "DD/MM/YYYY - HH:mm"}} @ {{venue.name}},{{venue.location}}
+  </li>
+  <p>
+    {{venue.longitude}},{{venue.latitude}}
+  </p>
 {{/each}}
 </div>
 </ul>
