@@ -1,16 +1,11 @@
-.display-favourites {
-  padding-left: 0; }
-
 *, *:before, *:after {
   box-sizing: border-box; }
 
+.display-favourites {
+  padding-left: 0; }
+
 form input {
   color: #1d1717; }
-
-html {
-  margin: 0;
-  padding: 0;
-  scroll-behavior: smooth; }
 
 .bold {
   font-weight: bold; }
