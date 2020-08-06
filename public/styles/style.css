@@ -1,6 +1,3 @@
-.display-favourites {
-  padding-left: 0; }
-
 .flex-row {
   display: flex;
   flex-direction: column;
@@ -14,8 +11,14 @@
   flex-direction: column;
   justify-content: flex-start; }
 
+.artists-list {
+  border: white; }
+
 *, *:before, *:after {
   box-sizing: border-box; }
+
+.display-favourites {
+  padding-left: 0; }
 
 form input {
   color: #1d1717; }

@@ -1,5 +1,5 @@
-@import 'favourites-display';
 @import 'private';
+@import 'index';
 
 // --------- START Custom Variables ------------
 
@@ -20,6 +20,10 @@ $accent: rgb(255, 100, 44);
 }
 
 // START OF CUSTOM STYLING
+
+.display-favourites {
+  padding-left: 0;
+}
 
 form {
   input {
