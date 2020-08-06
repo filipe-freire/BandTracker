@@ -7,7 +7,7 @@ module.exports = (req, res, next) => {
   if (!req.user.createdFavourites) {
     next();
   } else {
-    const error = new Error('Access denied!');
+    const error = new Error('!Access denied!');
     next(error);
   }
 };

@@ -2,7 +2,7 @@
 
     {{#each artists }}
     <br>
-    <img class="center-h img-artist-search" src="{{ images.0.url }}" alt="" style="width: 300px;">
+    <a href="/artist/{{ id }}"><img class="center-h img-artist-search" src="{{ images.0.url }}" alt="" style="width: 300px;"></a>
     <h1 class="center-h"><a href="/artist/{{ id }}"> {{ name }} </a></h1>
     {{/each }}
 
