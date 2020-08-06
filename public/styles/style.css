@@ -37,7 +37,7 @@ html {
   color: #007710; }
 
 footer {
-  background-color: #1d1a1a;
+  background-color: #0b0c0b;
   color: #fffef1;
   display: flex;
   padding: 1em 0; }
@@ -79,7 +79,7 @@ ul {
   width: 100%;
   top: 0;
   left: 0;
-  background: linear-gradient(to bottom right, rgba(26, 38, 196, 0.623) 0%, rgba(78, 85, 17, 0.65) 100%);
+  background: linear-gradient(to bottom, rgba(26, 38, 196, 0.623) 0%, rgba(28, 31, 9, 0.815) 100%);
   position: absolute; }
 
 .content {
@@ -92,9 +92,9 @@ ul {
   line-height: 1.6; }
   .content .card {
     background-color: #051035b2;
+    width: 100%;
     padding: 2em 3em;
     border-radius: 15px;
-    border: 1px groove rgba(223, 233, 88, 0.685);
     text-align: center; }
     .content .card p {
       font-style: italic;
@@ -111,6 +111,8 @@ ul {
       cursor: pointer; }
 
 body {
+  background-color: #1d1919;
+  color: #fffef1;
   margin: 0 auto;
   font-family: sans-serif;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -127,7 +129,7 @@ nav {
   position: sticky;
   top: 0;
   z-index: 3;
-  background-color: #1d1a1a;
+  background-color: #0b0c0b;
   color: #fffef1;
   padding: 0 2em;
   display: flex; }

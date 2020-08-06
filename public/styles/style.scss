@@ -58,7 +58,7 @@ html {
 }
 
 footer {
-  background-color: $dark-color;
+  background-color: #0b0c0b;
   color: $light-color;
 
   display: flex;
@@ -113,10 +113,10 @@ ul {
   top: 0;
   left: 0;
   background: linear-gradient(
-    to bottom right,
+    to bottom,
     rgba(26, 38, 196, 0.623) 0%,
-    rgba(78, 85, 17, 0.65) 100%
-  );
+    rgba(28, 31, 9, 0.815) 100%
+  ); // CHANGE GRADIENT TO TEST BATTERN IN BODY
   position: absolute;
 }
 
@@ -131,15 +131,20 @@ ul {
 
   .card {
     background-color: #051035b2;
+    width: 100%;
     padding: 2em 3em;
     border-radius: 15px;
-    border: 1px groove rgba(223, 233, 88, 0.685);
+    //border: 1px groove rgba(223, 233, 88, 0.685);
     text-align: center;
 
     p {
       font-style: italic;
       font-size: 1.5em;
     }
+
+    // .call-to-action {
+    //   font-size: 1em;
+    // }
 
     .btn {
       background: black;
@@ -160,6 +165,9 @@ ul {
 // END OF CUSTOM STYLING
 
 body {
+  background-color: rgb(29, 25, 25); // TESTING BACKGROUND COLOR PATTERN
+  color: $light-color;
+
   // max-width: 52em;
   margin: 0 auto;
   font-family: sans-serif;
@@ -182,7 +190,7 @@ nav {
   top: 0;
   z-index: 3;
 
-  background-color: $dark-color;
+  background-color: #0b0c0b;
   color: $light-color;
   padding: 0 2em;
   display: flex;
