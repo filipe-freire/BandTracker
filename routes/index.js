@@ -63,7 +63,7 @@ router.get('/bands-in-town/events', (req, res, next) => {
 
 // ----------- START TESTING FAVOURITES -------------
 
-router.get('/favourites-creation', routeGuardDefault, routeGuardFavourites, (req, res) => {
+router.get('/favourites-creation', routeGuardDefault, (req, res) => {
   res.render('favourites-creation');
 });
 
