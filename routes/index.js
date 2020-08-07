@@ -13,7 +13,7 @@ const User = require('./../models/user');
 // Integration with the spotify app in order to get artist images
 // brief description & genres
 const spotifyApi = new SpotifyWebApi({
-  clientId: process.env.CLIENT_ID, // don't forget to put api keys in .env file
+  clientId: process.env.CLIENT_ID,
   clientSecret: process.env.CLIENT_SECRET
 });
 const bandsInTownKey = process.env.BANDSINTOWN_KEY;
@@ -33,7 +33,7 @@ spotifyApi
 
 // ----------- START OF TESTING BANDSINTOWN API -------------
 
-router.get('/bands-in-town', (req, res, next) => {
+router.get('/bands-in-town', routeGuardDefault, (req, res, next) => {
   axios
     .get(`https://rest.bandsintown.com/artists/Kendrick%20Lamar?app_id=${bandsInTownKey}`)
     .then(results => {
@@ -45,7 +45,7 @@ router.get('/bands-in-town', (req, res, next) => {
     });
 });
 
-router.get('/bands-in-town/events', (req, res, next) => {
+router.get('/bands-in-town/events', routeGuardDefault, (req, res, next) => {
   axios
     .get(
       `https://rest.bandsintown.com/artists/Kendrick%20Lamar/events?app_id=${bandsInTownKey}&date=upcoming`
@@ -164,55 +164,52 @@ router.post('/favourites-add', routeGuard, (req, res, next) => {
 
 // -------- START SINGLE ARTIST PAGE ------------
 
-router.get(
-  '/artist/:id',
-  /*routeGuard,*/ (req, res, next) => {
-    const id = req.params.id;
-    let spotifyData;
-    spotifyApi
-      .getArtist(id)
-      .then(data => {
-        //console.log('The received data from the API: ', data.body);
-        spotifyData = data;
-        //console.log(spotifyData.body.name);
-        const normalizedTerm = spotifyData.body.name.split(' ').join('%20');
+router.get('/artist/:id', (req, res, next) => {
+  const id = req.params.id;
+  let spotifyData;
+  spotifyApi
+    .getArtist(id)
+    .then(data => {
+      //console.log('The received data from the API: ', data.body);
+      spotifyData = data;
+      //console.log(spotifyData.body.name);
+      const normalizedTerm = spotifyData.body.name.split(' ').join('%20');
 
-        return axios.get(
-          `https://rest.bandsintown.com/artists/${normalizedTerm}/events?app_id=${bandsInTownKey}&date=upcoming`
-        );
-      })
-      .then(response => {
-        const events = response.data;
-        //console.log(events.isAxiosError);
-        const artist = {
-          spotifyData: spotifyData.body,
-          artistEvents: events
-        };
+      return axios.get(
+        `https://rest.bandsintown.com/artists/${normalizedTerm}/events?app_id=${bandsInTownKey}&date=upcoming`
+      );
+    })
+    .then(response => {
+      const events = response.data;
+      //console.log(events.isAxiosError);
+      const artist = {
+        spotifyData: spotifyData.body,
+        artistEvents: events
+      };
 
-        if (events.length) {
-          if (events[0].artist.name == spotifyData.body.name) {
-            // console.log(artist.artistEvents);
-            return res.render('artist-page', { artist });
-          }
-        } else {
+      if (events.length) {
+        if (events[0].artist.name == spotifyData.body.name) {
+          // console.log(artist.artistEvents);
           return res.render('artist-page', { artist });
         }
-      })
-      .catch(err => {
-        if (err.isAxiosError) {
-          const artist = {
-            spotifyData: spotifyData.body,
-            artistEvents: null
-          };
-          res.render('artist-page', { artist });
-          //see what you want to render here!
-        } else {
-          console.log('The error while searching artists occurred: ', err);
-          next(err);
-        }
-      });
-  }
-);
+      } else {
+        return res.render('artist-page', { artist });
+      }
+    })
+    .catch(err => {
+      if (err.isAxiosError) {
+        const artist = {
+          spotifyData: spotifyData.body,
+          artistEvents: null
+        };
+        res.render('artist-page', { artist });
+        //see what you want to render here!
+      } else {
+        console.log('The error while searching artists occurred: ', err);
+        next(err);
+      }
+    });
+});
 
 // -------- ENDING SINGLE ARTIST PAGE ------------
 
