@@ -84,7 +84,7 @@ router.post('/sign-up', upload.single('profilePicture'), (req, res, next) => {
           <p>Thank you for creating an account with BandTracker. <p>
           <p>Creating an account allows you to follow your favorite bands and check their tour dates whenever you sign in!</p>    
           <p>To confirm your email address, click here: </p>
-          <a href="${confirmationUrl}"> Confirm email </a>
+          <a href="${confirmationUrl}" target="_blank"> Confirm email </a>
           <p> Now you can become the most informed fan! </p>
           </body>
           </html>`
