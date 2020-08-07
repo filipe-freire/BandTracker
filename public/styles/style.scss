@@ -71,10 +71,6 @@ nav {
       margin-right: auto;
     }
   }
-
-  .hamburguer {
-    display: none;
-  }
 }
 
 img {
@@ -173,8 +169,7 @@ input:valid {
       display: inline-block;
     }
 
-    .nav--link,
-    button {
+    .nav--link {
       display: none;
     }
 
@@ -211,7 +206,8 @@ input:valid {
       align-items: center;
     }
 
-    .overlay a {
+    .overlay a,
+    .overlay button {
       margin: 0;
       text-decoration: none;
       font-size: 36px;
@@ -222,6 +218,8 @@ input:valid {
     }
 
     .overlay a:hover,
+    .overlay button:hover,
+    .overlay a:focus,
     .overlay a:focus {
       color: #f1f1f1;
     }
@@ -236,6 +234,12 @@ input:valid {
 }
 
 @media (min-width: 685px) {
+  nav {
+    .hamburguer {
+      display: none;
+    }
+  }
+
   #myNav {
     display: none;
   }
