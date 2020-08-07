@@ -10,15 +10,17 @@
               <h2>Never Miss A Concert Again!</h2>
               <a href="/authentication/sign-up" class="btn">Sign Up Now</a>
               <p>or</p>            
-              <h3 class="call-to-action">Scroll down for awesomeness!</h3>
+              <h4 class="call-to-action">Scroll down for awesomeness!</h4>
             </div>
         </div>
 </section> 
 {{/unless}}
 
 {{!-- Start of Personal Feed --}}
+{{#if user.status}}
 <section class="feed">
 <h1 class="center-h">Next Tours</h1>
+{{/if}}
 {{#each shows}}
 <ul>
   <div class="artists-list">
@@ -42,15 +44,13 @@
 {{!-- End of Personal Feed --}}
 
 <section class="container">
-    <h1 class="center-h">{{title}}</h1>
-    <p>Welcome to {{title}}!  </p>
-    {{!-- {{#if user.status}} --}}
-    <h1 class="center-h lh-1">Artist Search</h1>
+    <h1 class="center-h"> Welcome to {{title}}</h1>
+    <h2 class="center-h lh-1">Artist Search</h2>
     <form action="/artist-search" method="GET">
       <input type="text" placeholder="Search for any artist here!" name="term">
       <button>Search for an Artist</button>
     </form>
-    <h1 class="center-h lh-1" >Find Events by Artist</h1>
+    <h2 class="center-h lh-1">Find Events by Artist</h2>
     <form action="/show-events" method="GET">
       <input type="text" placeholder="Search for any artist here!" name="term">
       <button>Search for an Artist</button>

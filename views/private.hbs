@@ -15,18 +15,22 @@
 <h4><strong>Name</strong>:</h4> <h6>{{user.name}}</h6>
 
 <h4><strong>Email</strong>:</h4> <h6>{{user.email}}</h6>
+</div> 
 </div>
-</div>
-<a href="/favourites-display">My Favourite Artists</a><br>
+
+<a class="a-colors" href="/favourites-display">My Favourite Artists</a><br>
 {{#if user.status}}
-<a href="/favourites-add">Add Favourite Band</a>
+<a class="a-colors" href="/favourites-add">Add Favourite Band</a>
+<br>
 
-</br>
-<a href="/edit">Edit Profile</a>
+<div class="flex-column">
 
+<a class="orange-bt"href="/edit">Edit Profile</a>
 <form method="POST" action="/delete">
-  <button>Delete User</button>
+  <button class="orange-bt">Delete User</button>
 </form>
+</div>
+</div>
+
 {{/if}}
 
-</div>

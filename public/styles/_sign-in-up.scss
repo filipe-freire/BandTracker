@@ -3,10 +3,11 @@
   label {
     margin: 0 auto;
     font-size: 1.5em;
-    padding-bottom: 0.5rem;
+    padding-bottom: 0.2rem;
   }
 
   input {
+    padding: 0.8em;
     width: 100%;
     border-radius: 15px;
   }
@@ -19,16 +20,22 @@
     margin-top: 1em;
   }
 
-  button {
-    border: 5px solid $accent;
-    margin-top: 2em;
+  .orange-bt {
+    border: 0;
+    margin-top: 1.6em;
     letter-spacing: 0.2em;
     font-size: 1.2em;
     transition: 0.1s;
+    max-width: 600px;
+    margin: 2.2em auto;
+    padding: 0.6em 8em;
+    background-color: $accent;
   }
 
-  button:hover {
-    background-color: $accent;
-    color: $dark-color;
+  .orange-bt:hover {
+    padding: 0.6em 8em;
+    background-color: rgb(255, 51, 0);
+    color: $light-color;
+    box-shadow: 8px 8px 8px 8px rgba(0, 0, 0, 0.3);
   }
 }

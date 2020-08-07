@@ -40,6 +40,7 @@ nav {
   position: sticky;
   top: 0;
   z-index: 3;
+  box-shadow: 0px 3px 2px 2px rgba(0, 0, 0, 0.3);
 
   .logo {
     font-family: $font-logo;
@@ -47,11 +48,11 @@ nav {
     letter-spacing: 0.3em;
 
     img {
-      max-width: 100px;
+      max-width: 110px;
     }
   }
 
-  background-color: #0b0c0b;
+  background-color: #000000;
   color: $light-color;
   padding: 0 2em;
   display: flex;
@@ -118,7 +119,7 @@ p {
 }
 
 footer {
-  background-color: #0b0c0b;
+  background-color: #000000;
   color: $light-color;
 
   display: flex;

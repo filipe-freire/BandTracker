@@ -82,17 +82,17 @@
     .btn {
       max-width: 500px;
       margin: 0 auto;
-      padding: 0.5em 1em;
+      padding: 0.3em 2.2em;
 
       background: black;
-      border: 2px groove $light-color;
+      border: 1px groove $light-color;
       border-radius: 10px;
       font-weight: bold;
       font-size: 1.5em;
     }
 
     .btn:hover {
-      color: rgb(233, 222, 74);
+      color: rgb(255, 72, 0);
       cursor: pointer;
     }
   }
