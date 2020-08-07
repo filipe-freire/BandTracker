@@ -204,6 +204,8 @@ nav {
     font-family: "Tillana", monospace;
     color: #f58f00;
     letter-spacing: 0.3em; }
+    nav .logo img {
+      max-width: 100px; }
   nav form {
     max-height: 1em; }
   nav a,
