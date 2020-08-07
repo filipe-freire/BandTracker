@@ -1,6 +1,6 @@
 <div class="container">
 <h1 class="center-h">{{ artist.spotifyData.name }}'s Page</h1>
-<img class="center-h" src="{{artist.spotifyData.images.0.url}}" alt="" style="width: 300px;">
+<img class="center-h img-artist--shadow" src="{{artist.spotifyData.images.0.url}}" alt="" style="width: 300px;">
 {{#if user}}
 <a method="POST" href="/favourites-add">Follow this artist</a>
 {{/if }}

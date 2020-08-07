@@ -10,3 +10,7 @@
 .genres {
   margin-bottom: 2em;
 }
+.img-artist--shadow {
+  border-radius: 10px;
+  filter: drop-shadow(0 0 0.75rem darken($accent, 20%));
+}

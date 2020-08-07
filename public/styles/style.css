@@ -128,6 +128,10 @@
 .genres {
   margin-bottom: 2em; }
 
+.img-artist--shadow {
+  border-radius: 10px;
+  filter: drop-shadow(0 0 0.75rem #8f5300); }
+
 .img-artist-search {
   border-radius: 10px;
   filter: drop-shadow(0 0 0.75rem #8f5300); }

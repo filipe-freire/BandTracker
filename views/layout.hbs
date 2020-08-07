@@ -10,6 +10,8 @@
   <body>
     <nav>
       <a href="/" class="logo"> <img src="https://res.cloudinary.com/dlfxinw9v/image/upload/v1596787347/es3cxvelcuup7btzl44m_jvh3gl.png" alt="BandTracker"></a>
+
+
       <div id="myNav" class="overlay">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <div class="overlay-content">
@@ -28,6 +30,9 @@
           {{/if}}
         </div>
       </div>
+
+
+
       {{#if user.status}}
         <a class="nav--link" href="/favourites-display">My Favourite Artists</a><br>
         <a class="nav--link" href="/favourites-add">Add Favourite Band</a>

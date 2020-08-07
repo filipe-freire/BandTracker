@@ -17,6 +17,7 @@ const spotifyApi = new SpotifyWebApi({
   clientSecret: process.env.CLIENT_SECRET
 });
 const bandsInTownKey = process.env.BANDSINTOWN_KEY;
+const lastFmKey = process.env.API_KEY_LASTFM;
 const multer = require('multer');
 const cloudinary = require('cloudinary');
 const multerStorageCloudinary = require('multer-storage-cloudinary');
@@ -183,7 +184,7 @@ router.get(
       })
       .then(response => {
         const events = response.data;
-        // console.log(events);
+        //console.log(events.isAxiosError);
         const artist = {
           spotifyData: spotifyData.body,
           artistEvents: events
@@ -198,7 +199,19 @@ router.get(
           return res.render('artist-page', { artist });
         }
       })
-      .catch(err => console.log('The error while searching artists occurred: ', err));
+      .catch(err => {
+        if (err.isAxiosError) {
+          const artist = {
+            spotifyData: spotifyData.body,
+            artistEvents: null
+          };
+          res.render('artist-page', { artist });
+          //see what you want to render here!
+        } else {
+          console.log('The error while searching artists occurred: ', err);
+          next(err);
+        }
+      });
   }
 );
 
