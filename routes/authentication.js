@@ -82,11 +82,11 @@ router.post('/sign-up', upload.single('profilePicture'), (req, res, next) => {
           <body bgcolor="#FFFFFF" text="#000000">  
           <h1> Welcome to BandTracker, ${user.name}! </h1>
           <h2> You are one click away from awesomeness! </h2>
-          <p>Thank you for creating an account with BandTracker <p>
-          <p>Creating an account allows you to follow your favorite bands and check their tour dates also check all the concerts happening around you.</p>    
+          <p>Thank you for creating an account with BandTracker. <p>
+          <p>Creating an account allows you to follow your favorite bands and check their tour dates whenever you sign in!</p>    
           <p>To confirm your email address, click here: </p>
           <a href="${confirmationUrl}"> Confirm email </a>
-          <p> And become the most informed fan! </p>
+          <p> Now you can become the most informed fan! </p>
           </body>
           </html>`
         })
