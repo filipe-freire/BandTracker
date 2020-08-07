@@ -145,10 +145,18 @@
   color: #fffef1;
   box-shadow: 8px 8px 8px 8px rgba(0, 0, 0, 0.3); }
 
+.delete {
+  background-color: orangered;
+  transition: 0.1s; }
+
+.delete:hover {
+  background-color: #bb0000; }
+
 .a-colors {
   background-color: #181616;
   border: 2px solid #f58f00;
-  margin: 0; }
+  margin: 0 auto;
+  max-width: 445px; }
 
 .form {
   display: flex;
