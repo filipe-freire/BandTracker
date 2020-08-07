@@ -89,7 +89,9 @@ router.post('/favourites-creation', (req, res, next) => {
 });
 
 router.get('/favourites-display', routeGuard, (req, res, next) => {
-  Favourites.find()
+  const id = req.user._id;
+  console.log(id);
+  Favourites.find({ creator: id })
     .then(data => {
       // console.log(data);
       res.render('favourites-display', { favourite: data });
