@@ -151,7 +151,8 @@
 .sign-up-form input,
 .sign-in-form input {
   width: 100%;
-  border-radius: 15px; }
+  border-radius: 15px;
+  background-color: #fffef1; }
 
 .sign-up-form input + label,
 .sign-in-form input + label {
