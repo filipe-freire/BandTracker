@@ -47,8 +47,8 @@ app.use(
     cookie: {
       maxAge: 15 * 24 * 60 * 60 * 1000,
       sameSite: 'lax',
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production'
+      httpOnly: true
+      //secure: process.env.NODE_ENV === 'production'
     },
     store: new (connectMongo(expressSession))({
       mongooseConnection: mongoose.connection,

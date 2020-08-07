@@ -201,7 +201,9 @@ nav {
   padding: 0 2em;
   display: flex; }
   nav .logo {
-    background-image: url("logo-bt.png"); }
+    font-family: "Tillana", monospace;
+    color: #f58f00;
+    letter-spacing: 0.3em; }
   nav form {
     max-height: 1em; }
   nav a,
