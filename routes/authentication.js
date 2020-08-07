@@ -64,7 +64,8 @@ router.post('/sign-up', upload.single('profilePicture'), (req, res, next) => {
     })
     .then(user => {
       req.session.user = user._id;
-      console.log(req.session);
+      res.session.user = user._id;
+      console.log(req);
 
       transport
         .sendMail({
