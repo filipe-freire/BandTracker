@@ -128,10 +128,6 @@
 .genres {
   margin-bottom: 2em; }
 
-.img-artist--shadow {
-  border-radius: 10px;
-  filter: drop-shadow(0 0 0.75rem #8f5300); }
-
 .img-artist-search {
   border-radius: 10px;
   filter: drop-shadow(0 0 0.75rem #8f5300); }
@@ -222,8 +218,6 @@ nav {
     nav a:first-child,
     nav button:first-child {
       margin-right: auto; }
-  nav .hamburguer {
-    display: none; }
 
 img {
   width: 100%;
@@ -301,8 +295,7 @@ input:valid {
 @media (max-width: 685px) {
   nav .logo {
     display: inline-block; }
-  nav .nav--link,
-  nav button {
+  nav .nav--link {
     display: none; }
   nav .hamburguer {
     display: flex;
@@ -330,7 +323,8 @@ input:valid {
     flex-direction: column;
     justify-content: center;
     align-items: center; }
-  nav .overlay a {
+  nav .overlay a,
+  nav .overlay button {
     margin: 0;
     text-decoration: none;
     font-size: 36px;
@@ -339,6 +333,8 @@ input:valid {
     transition: 0.3s;
     padding: 0; }
   nav .overlay a:hover,
+  nav .overlay button:hover,
+  nav .overlay a:focus,
   nav .overlay a:focus {
     color: #f1f1f1; }
   nav .overlay .closebtn {
@@ -348,6 +344,8 @@ input:valid {
     font-size: 60px; } }
 
 @media (min-width: 685px) {
+  nav .hamburguer {
+    display: none; }
   #myNav {
     display: none; } }
 

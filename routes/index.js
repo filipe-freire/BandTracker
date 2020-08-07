@@ -17,7 +17,6 @@ const spotifyApi = new SpotifyWebApi({
   clientSecret: process.env.CLIENT_SECRET
 });
 const bandsInTownKey = process.env.BANDSINTOWN_KEY;
-const lastFmKey = process.env.API_KEY_LASTFM;
 const multer = require('multer');
 const cloudinary = require('cloudinary');
 const multerStorageCloudinary = require('multer-storage-cloudinary');
@@ -38,7 +37,7 @@ router.get('/bands-in-town', (req, res, next) => {
   axios
     .get(`https://rest.bandsintown.com/artists/Kendrick%20Lamar?app_id=${bandsInTownKey}`)
     .then(results => {
-      console.log(results.data);
+      //console.log(results.data);
       res.render('bands-in-town', { searchResult: results.data });
     })
     .catch(error => {
@@ -52,7 +51,7 @@ router.get('/bands-in-town/events', (req, res, next) => {
       `https://rest.bandsintown.com/artists/Kendrick%20Lamar/events?app_id=${bandsInTownKey}&date=upcoming`
     )
     .then(results => {
-      console.log(results.data[0]);
+      // console.log(results.data[0]);
       res.render('bands-in-town--events', { searchResult: results.data[0] });
     })
     .catch(error => {
@@ -91,7 +90,7 @@ router.post('/favourites-creation', (req, res, next) => {
 
 router.get('/favourites-display', routeGuard, (req, res, next) => {
   const id = req.user._id;
-  console.log(id);
+  //console.log(id);
   Favourites.find({ creator: id })
     .then(data => {
       // console.log(data);
@@ -127,15 +126,15 @@ router.post('/favourites-delete', routeGuard, (req, res, next) => {
     .catch(error => next(error));
 });
 
-router.get('/favourites-add', routeGuard, (req, res, next) => {
+router.get('/favourites-add', routeGuard, (req, res) => {
   res.render('favourites-add');
 });
 
 router.post('/favourites-add', routeGuard, (req, res, next) => {
   const { artistName } = req.body;
-  console.log(artistName);
+  //console.log(artistName);
   const artistNameArr = artistName.split(',');
-  console.log(artistNameArr);
+  //console.log(artistNameArr);
   const userId = req.user._id;
 
   Favourites.find({ creator: userId })
@@ -143,7 +142,7 @@ router.post('/favourites-add', routeGuard, (req, res, next) => {
       //delete or filter the bands that are not the one that the user wants to delete
       //console.log(followingBands);
       const favouriteBands = followingBands[0].artistName;
-      console.log(favouriteBands);
+      // console.log(favouriteBands);
       if (artistName.trim().length === 0) {
         return res.render('favourites-add', {
           error: 'Please write the name of an artist or band'
@@ -224,7 +223,7 @@ router.get('/artist-search', (req, res) => {
   spotifyApi
     .searchArtists(term)
     .then(data => {
-      console.log('The received data from the API: ', data.body.artists.items);
+      // console.log('The received data from the API: ', data.body.artists.items);
 
       res.render('artist-search-results', { artists: data.body.artists.items });
     })
@@ -233,7 +232,7 @@ router.get('/artist-search', (req, res) => {
 
 router.get('/show-events', (req, res) => {
   const term = req.query.term;
-  console.log(term);
+  //console.log(term);
   const normalizedTerm = term.split(' ').join('%20');
 
   axios
@@ -241,13 +240,13 @@ router.get('/show-events', (req, res) => {
       `https://rest.bandsintown.com/artists/${normalizedTerm}/events?app_id=${bandsInTownKey}&date=upcoming`
     )
     .then(results => {
-      console.log(results.data.length === 0);
+      // console.log(results.data.length === 0);
       res.render('show-events', { searchResults: results.data });
     });
 });
 
 // NORMAL APP ROUTING
-router.get('/', async (req, res, next) => {
+router.get('/', async (req, res) => {
   const artistTours = {};
   const user = req.user;
 
@@ -262,7 +261,7 @@ router.get('/', async (req, res, next) => {
     //console.log('favouritsArray', favouritsArray);
 
     //iterate through that list and call the api
-    for (let artist of favouritsArray) {
+    for (const artist of favouritsArray) {
       const normalizedArtistName = artist.split(' ').join('%20');
       const tours = await axios.get(
         `https://rest.bandsintown.com/artists/${normalizedArtistName}/events?app_id=${bandsInTownKey}&date=upcoming`
@@ -273,11 +272,11 @@ router.get('/', async (req, res, next) => {
   res.render('index', { title: 'BandTracker', shows: artistTours });
 });
 
-router.get('/private', routeGuardDefault, (req, res, next) => {
+router.get('/private', routeGuardDefault, (req, res) => {
   res.render('private');
 });
 
-router.get('/edit', routeGuard, (req, res, next) => {
+router.get('/edit', routeGuard, (req, res) => {
   res.render('edit');
 });
 
