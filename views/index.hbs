@@ -6,7 +6,7 @@
 
         <div class="content container">
             <div class="card">
-              <h1>BandTracker</h1>
+             <img src="https://res.cloudinary.com/dlfxinw9v/image/upload/v1596787347/es3cxvelcuup7btzl44m_jvh3gl.png" alt="BandTracker">
               <h2>Never Miss A Concert Again!</h2>
               <a href="/authentication/sign-up" class="btn">Sign Up Now</a>
               <p>or</p>            
@@ -32,9 +32,6 @@
   <li class="shows">
     {{date datetime "DD/MM/YYYY - HH:mm"}} @ {{venue.name}},{{venue.location}}
   </li>
-  <p>
-    {{venue.longitude}},{{venue.latitude}}
-  </p>
 {{/each}}
 </div>
 </ul>
