@@ -122,7 +122,7 @@ router.post('/favourites-delete', routeGuard, (req, res, next) => {
         { new: true }
       );
     })
-    .then(res.redirect('/favourites-display'))
+    .then(() => res.redirect('/favourites-display'))
     .catch(error => next(error));
 });
 
@@ -149,7 +149,7 @@ router.post('/favourites-add', routeGuard, (req, res, next) => {
         });
       } else if (!favouriteBands.includes(artistName)) {
         Favourites.findOneAndUpdate({ creator: userId }, { $push: { artistName: artistNameArr } })
-          .then(res.redirect('/favourites-display'))
+          .then(() => res.redirect('/favourites-display'))
           .catch(error => {
             next(error);
           });
