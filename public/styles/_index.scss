@@ -1,5 +1,11 @@
 .artists-list {
   border: white;
+
+  a {
+    display: block;
+    max-width: 300px; // same as image
+    margin: 0 auto;
+  }
 }
 
 // start of background video

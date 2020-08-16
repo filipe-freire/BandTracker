@@ -132,23 +132,29 @@ router.get('/favourites-add', routeGuard, (req, res) => {
 
 router.post('/favourites-add', routeGuard, (req, res, next) => {
   const { artistName } = req.body;
-  //console.log(artistName);
-  const artistNameArr = artistName.split(',');
+  const artistNameArr = artistName.split(', ');
   //console.log(artistNameArr);
   const userId = req.user._id;
 
   Favourites.find({ creator: userId })
     .then(followingBands => {
       //delete or filter the bands that are not the one that the user wants to delete
-      //console.log(followingBands);
       const favouriteBands = followingBands[0].artistName;
-      // console.log(favouriteBands);
+
+      // filters the submitted array to check if the artist was previosly added. Shows no erro to the user though
+      const filteredSubmittedArtistArr = artistNameArr.filter(
+        artist => !favouriteBands.includes(artist)
+      );
+
       if (artistName.trim().length === 0) {
         return res.render('favourites-add', {
           error: 'Please write the name of an artist or band'
         });
       } else if (!favouriteBands.includes(artistName)) {
-        Favourites.findOneAndUpdate({ creator: userId }, { $push: { artistName: artistNameArr } })
+        Favourites.findOneAndUpdate(
+          { creator: userId },
+          { $push: { artistName: filteredSubmittedArtistArr } }
+        )
           .then(() => res.redirect('/favourites-display'))
           .catch(error => {
             next(error);
@@ -214,7 +220,7 @@ router.get('/artist/:id', (req, res, next) => {
 // -------- ENDING SINGLE ARTIST PAGE ------------
 
 // Spotify get artist results route/view
-router.get('/artist-search', (req, res, next) => {
+router.get('/artist-search', (req, res) => {
   const term = req.query.term;
   if (term.trim()) {
     spotifyApi
