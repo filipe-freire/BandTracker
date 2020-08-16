@@ -214,17 +214,21 @@ router.get('/artist/:id', (req, res, next) => {
 // -------- ENDING SINGLE ARTIST PAGE ------------
 
 // Spotify get artist results route/view
-router.get('/artist-search', (req, res) => {
+router.get('/artist-search', (req, res, next) => {
   const term = req.query.term;
-
-  spotifyApi
-    .searchArtists(term)
-    .then(data => {
-      // console.log('The received data from the API: ', data.body.artists.items);
-
-      res.render('artist-search-results', { artists: data.body.artists.items });
-    })
-    .catch(err => console.log('The error while searching artists occurred: ', err));
+  if (term.trim()) {
+    spotifyApi
+      .searchArtists(term)
+      .then(data => {
+        // console.log('The received data from the API: ', data.body.artists.items);
+        res.render('artist-search-results', { artists: data.body.artists.items });
+      })
+      .catch(err => console.log('The error while searching artists occurred: ', err));
+  } else {
+    console.log('error occured');
+    throw Error('Invalid Search!');
+    // res.render('index');
+  }
 });
 
 router.get('/show-events', (req, res) => {
@@ -232,14 +236,19 @@ router.get('/show-events', (req, res) => {
   //console.log(term);
   const normalizedTerm = term.split(' ').join('%20');
 
-  axios
-    .get(
-      `https://rest.bandsintown.com/artists/${normalizedTerm}/events?app_id=${bandsInTownKey}&date=upcoming`
-    )
-    .then(results => {
-      // console.log(results.data.length === 0);
-      res.render('show-events', { searchResults: results.data });
-    });
+  if (term.trim()) {
+    axios
+      .get(
+        `https://rest.bandsintown.com/artists/${normalizedTerm}/events?app_id=${bandsInTownKey}&date=upcoming`
+      )
+      .then(results => {
+        // console.log(results.data.length === 0);
+        res.render('show-events', { searchResults: results.data });
+      });
+  } else {
+    throw Error('Invalid Search!');
+    // res.render('index');
+  }
 });
 
 // NORMAL APP ROUTING
