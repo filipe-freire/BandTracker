@@ -35,7 +35,7 @@ const generateRandomToken = length => {
 };
 
 // Routers
-router.get('/sign-up', (req, res, next) => {
+router.get('/sign-up', (req, res) => {
   res.render('sign-up');
 });
 
@@ -49,8 +49,14 @@ router.post('/sign-up', upload.single('profilePicture'), (req, res, next) => {
   const confirmationToken = generateRandomToken(10);
   const confirmationUrl = `https://bandtrackerapp.herokuapp.com/authentication/confirm-email?token=${confirmationToken}`; //`http://localhost:3000/authentication/confirm-email?token=${confirmationToken}`;
 
-  bcryptjs
-    .hash(password, 10)
+  User.findOne({ email: email })
+    .then(existingUser => {
+      if (existingUser) {
+        return Promise.reject(new Error('User already owns an account'));
+      } else {
+        return bcryptjs.hash(password, 10);
+      }
+    })
     .then(hash => {
       return User.create({
         name,
@@ -65,12 +71,11 @@ router.post('/sign-up', upload.single('profilePicture'), (req, res, next) => {
     .then(user => {
       req.session.user = user._id;
 
-      transport
-        .sendMail({
-          from: process.env.NODEMAILER_EMAIL,
-          to: user.email,
-          subject: 'Click the link to activate your account!',
-          html: `<html>  
+      return transport.sendMail({
+        from: process.env.NODEMAILER_EMAIL,
+        to: user.email,
+        subject: 'Click the link to activate your account!',
+        html: `<html>  
           <head>
           <title>Welcome to BandTracker</title>  
           <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">  
@@ -88,13 +93,10 @@ router.post('/sign-up', upload.single('profilePicture'), (req, res, next) => {
           <p> Now you can become the most informed fan! </p>
           </body>
           </html>`
-        })
-        .then(result => {
-          console.log('Email was sent ', result);
-        })
-        .catch(error => {
-          console.log('There was an error sending the email', error);
-        });
+      });
+    })
+    .then(result => {
+      console.log('Email was sent ', result);
       res.redirect('/favourites-creation');
     })
     .catch(error => {
@@ -110,10 +112,13 @@ router.get('/confirm-email', (req, res, next) => {
       //console.log(user);
       res.render('confirmation', { user }); //render confirmation page
     })
-    .catch(error => console.log(error));
+    .catch(error => {
+      console.log(error);
+      next(error);
+    });
 });
 
-router.get('/sign-in', (req, res, next) => {
+router.get('/sign-in', (req, res) => {
   res.render('sign-in');
 });
 
@@ -142,7 +147,7 @@ router.post('/sign-in', (req, res, next) => {
     });
 });
 
-router.post('/sign-out', (req, res, next) => {
+router.post('/sign-out', (req, res) => {
   req.session.destroy();
   res.redirect('/');
 });

@@ -38,7 +38,6 @@ const schema = new mongoose.Schema(
     },
     createdFavourites: {
       type: Boolean,
-      enum: [false, true],
       default: false
     },
     confirmationToken: {

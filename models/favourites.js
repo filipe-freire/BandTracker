@@ -10,7 +10,7 @@ const favouritesSchema = new mongoose.Schema(
       unique: true,
       required: true
     },
-    artistName: [{ type: String, unique: true, trim: true }]
+    artistName: [{ type: String, trim: true }]
   },
   {
     timestamps: true

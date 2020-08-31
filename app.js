@@ -4,7 +4,6 @@ const { join } = require('path');
 const express = require('express');
 const createError = require('http-errors');
 const connectMongo = require('connect-mongo');
-const cookieParser = require('cookie-parser');
 const expressSession = require('express-session');
 const logger = require('morgan');
 const mongoose = require('mongoose');
@@ -12,11 +11,14 @@ const hbs = require('hbs');
 const helperDate = require('helper-date');
 const sassMiddleware = require('node-sass-middleware');
 const serveFavicon = require('serve-favicon');
+
 const basicAuthenticationDeserializer = require('./middleware/basic-authentication-deserializer.js');
 const bindUserToViewLocals = require('./middleware/bind-user-to-view-locals.js');
 
 const indexRouter = require('./routes/index');
 const authenticationRouter = require('./routes/authentication');
+const favouritesRouter = require('./routes/favourites');
+const artistsRouter = require('./routes/artists');
 
 const app = express();
 
@@ -29,8 +31,7 @@ app.use(
   sassMiddleware({
     src: join(__dirname, 'public'),
     dest: join(__dirname, 'public'),
-    outputStyle:
-      process.env.NODE_ENV === 'development' ? 'nested' : 'compressed',
+    outputStyle: process.env.NODE_ENV === 'development' ? 'nested' : 'compressed',
     force: process.env.NODE_ENV === 'development',
     sourceMap: true
   })
@@ -38,7 +39,6 @@ app.use(
 app.use(express.static(join(__dirname, 'public')));
 app.use(logger('dev'));
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
 app.use(
   expressSession({
     secret: process.env.SESSION_SECRET,
@@ -61,6 +61,8 @@ app.use(bindUserToViewLocals);
 
 // ADD ROUTERS HERE IF MORE ARE NEEDED
 app.use('/', indexRouter);
+app.use('/', favouritesRouter);
+app.use('/', artistsRouter);
 app.use('/authentication', authenticationRouter);
 
 // Catch missing routes and forward to error handler
@@ -69,10 +71,11 @@ app.use((req, res, next) => {
 });
 
 // Catch all error handler
-app.use((error, req, res, next) => {
+app.use((error, req, res) => {
   res.locals.message = error.message;
   // Set error information, with stack only available in development
   // res.locals.error = req.app.get('env') === 'development' ? error : {};
+  console.log(error);
   res.status(error.status || 500);
   res.render('error');
 });
