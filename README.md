@@ -5,3 +5,7 @@ Bandtracker's main goal is to allow the user to search for his favorite bands/ar
 
 ## Tech Used
 NodeJS, ExpressJS, Handlebars and API integrations (Spotify & BandsInTown).
+
+## Live Website
+
+https://bandtrackerapp.herokuapp.com/
