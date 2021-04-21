@@ -12,9 +12,9 @@ const schema = new mongoose.Schema(
     email: {
       type: String,
       required: true,
+      unique: true,
       lowercase: true,
       trim: true
-      // ADD UNIQUE
     },
     passwordHash: {
       type: String,
@@ -30,16 +30,15 @@ const schema = new mongoose.Schema(
       type: String,
       required: [true, 'A profile picture is required.']
     },
-    trackBands: {
-      type: [String],
-      required: true,
-      trim: true
-    },
     // Send confirmation email to user
     status: {
-      type: String,
-      enum: ['pending_confirmation', 'active'],
-      default: 'pending_confirmation'
+      type: Number,
+      enum: [0, 1], // 0 = 'confirmation pending' \ 1 = 'active'
+      default: 0
+    },
+    createdFavourites: {
+      type: Boolean,
+      default: false
     },
     confirmationToken: {
       type: String

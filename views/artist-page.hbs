@@ -1,20 +1,33 @@
-<h1>{{ artist.artist.name }}'s Page</h1><br>
-<img src="{{artist.artist.images.0.url}}" alt="" style="width: 300px;">
+<div class="container">
+<h1 class="center-h">{{ artist.spotifyData.name }}'s Page</h1>
+<img class="center-h img-artist--shadow" src="{{artist.spotifyData.images.0.url}}" alt="" style="width: 300px;">
+{{#if user}}
+<a method="POST" href="/favourites-add">Follow this artist</a>
+{{/if }}
+<h3 class="bold"> Followers on Spotify: <span class="fw-regular">{{ artist.spotifyData.followers.total }}</span></h3>
 
-<h3> Total Number of Followers on Spotify: <span class="bold">{{ artist.artist.followers.total }}</span></h3>
-
-<h2>Genres: {{artist.artist.genres }}</h2>
-
+<h4 class="bold">Genres: </h4>
+<ul class="genres">
+{{#each artist.spotifyData.genres}}
+<li> {{this }}</li>
+{{/each}}
+</ul>
 
 {{!-- INSERT TOURS BELOW IF THEY EXIST --}}
 
-{{#if artist.artistEvents}}
-
-{{!-- REFERENCES EVENT OBJECT --}}
-<h4> Next Concerts: {{artist.artistEvents.title }}</h4> 
-<h5> Date: {{artist.artistEvents.start }}</h5>
-<h5> Where: {{artist.artistEvents.entities.0.name }} | {{artist.artistEvents.entities.0.formatted_address }}</h5> 
-
-{{else}}
-<h1>No tours available</h1>
+{{#if artist.artistEvents.length}}
+            {{!-- REFERENCES EVENT OBJECT --}}
+            <h3 class="bold">Next Concerts:</h3>
+            {{#each artist.artistEvents}}
+                <h4 class="bold"> Location: <span class="fw-regular">{{venue.location }}</span></h4>
+                <h5 class="bold"> Date: <span class="fw-regular">{{date datetime "DD/MM/YYYY,HH:mm" }}</span></h5>
+                    {{#if offers.length}}                        
+                          <h5 class="tickets"> Tickets: <a class="tickets tickets-available" href="{{ offers.0.url }}" target="_blank">{{offers.0.status }}</a> </h5><br>             
+                    {{else}}         
+                        <h5>No Tickets Available</h5><br>
+                    {{/if}}
+            {{/each}}
+      {{else}}
+      <h1>No tours available</h1>
 {{/if}}
+</div>

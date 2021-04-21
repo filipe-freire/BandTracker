@@ -1,5 +1,9 @@
-{{#each artists }}
-<img src="{{ images.0.url }}" alt="" style="width: 500px;">
-<h1> {{ name }} </h1>
-<a href="/artist/{{ id }}">View Profile</a> <br>
-{{/each }}
+<div class="container">
+
+    {{#each artists }}
+    <br>
+    <a href="/artist/{{ id }}"><img class="center-h img-artist-search" src="{{ images.0.url }}" alt="" style="width: 300px;"></a>
+    <h1 class="center-h"><a href="/artist/{{ id }}"> {{ name }} </a></h1>
+    {{/each }}
+
+</div>

@@ -1,0 +1,16 @@
+.display-favourites {
+  padding-left: 0;
+
+  .fav-artist--name {
+    font-size: 2em;
+  }
+
+  form {
+    display: inline;
+    margin-left: 1em;
+
+    button {
+      padding: 0.5em 1em;
+    }
+  }
+}

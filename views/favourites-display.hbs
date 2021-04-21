@@ -1,7 +1,21 @@
-<h1> {{user.name}}'s Favourite Artists</h1>
+<div class="container">
+
+<h1 class="center-h lh-1"> {{user.name}}'s Favourite Artists</h1>
 
 {{#each favourite }}
 
-<h3> {{ artistName }} </h1>
-
-{{/each }}
+    <ul class="display-favourites">
+      {{#each artistName}}
+      <li>
+        <a class="fav-artist--name" href="/artist-search?term={{this}}">{{this}}</a> 
+        <form method="POST" action="/favourites-delete" class="delete-tracked-artists">
+          <input id="delete-artist" name="deleteArtistName" value="{{this}}">
+          <button>Unfollow artist</button>
+        </form>
+      </li>
+      
+      {{/each}}
+  
+{{/each }}  
+</ul>
+</div>

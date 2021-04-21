@@ -1,10 +1,59 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
+{{#unless user}}
+<section class="background-video">
+  <div class="video-container">
+            <video src="https://www.videvo.net/videvo_files/converted/2016_09/preview/Beach_Party_1.mov41295.webm" autoplay muted loop></video>
+        </div>
 
-<h1>Testing Spotify Integration</h1>
-<form action="/artist-search" method="GET">
-  <input type="text" placeholder="Search for any artist here!" name="term">
-  <button>Search for an Artist</button>
-</form>
+        <div class="content container">
+            <div class="card">
+             <img src="https://res.cloudinary.com/dlfxinw9v/image/upload/v1596787347/es3cxvelcuup7btzl44m_jvh3gl.png" alt="BandTracker">
+              <h2>Never Miss A Concert Again!</h2>
+              <a href="/authentication/sign-up" class="btn">Sign Up Now</a>
+              <p>or</p>            
+              <h4 class="call-to-action">Scroll down for awesomeness!</h4>
+            </div>
+        </div>
+</section> 
+{{/unless}}
 
-<a href="/show-events">Show Events!</a>
+{{!-- Start of Personal Feed --}}
+{{#if user.status}}
+<section class="feed">
+<h1 class="center-h">Next Tours</h1>
+{{/if}}
+{{#each shows}}
+<ul>
+  <div class="artists-list">
+  {{#each this}}
+  <a href="/artist-search?term={{artist.name}}">
+    <img src=" {{artist.image_url}} " alt="" class="center-h img-artist-search">
+  </a>
+  <h3 class="center-h">
+  	<a href="/artist-search?term={{artist.name}}">{{artist.name}}</a>
+  </h3>
+  <li class="shows">
+    {{date datetime "DD/MM/YYYY - HH:mm"}} @ {{venue.name}},{{venue.location}}
+  </li>
+{{/each}}
+</div>
+</ul>
+{{/each}}
+  
+</section>
+
+{{!-- End of Personal Feed --}}
+
+<section class="container">
+    <h1 class="center-h"> Welcome to {{title}}</h1>
+    <h2 class="center-h lh-1">Artist Search</h2>
+    <form action="/artist-search" method="GET">
+      <input type="text" placeholder="Search for any artist here!" name="term">
+      <button>Search for an Artist</button>
+    </form>
+    <h2 class="center-h lh-1">Find Events by Artist</h2>
+    <form action="/show-events" method="GET">
+      <input type="text" placeholder="Search for any artist here!" name="term">
+      <button>Search for an Artist</button>
+    </form>
+</section>
+

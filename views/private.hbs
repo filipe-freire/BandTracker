@@ -1,37 +1,36 @@
-<div>
-  <a href="/show-events">Show Events</a>
+<div class="container">
+  {{#unless user.status}}
+<h4 class="activate-acc-msg"> Please check your email to confirm your account!</h4>
+{{/unless}}
+
+<h1 class="center-h lh-1">Your Account</h1>
+<div class="flex-row">
+<h5><strong>Profile Picture</strong>: <br>
+
+<img src="{{user.profilePicture}}" alt="" style="width: 150px;">
+
+</h5>
+<div class="flex-column">
+<br />
+<h4><strong>Name</strong>:</h4> <h6>{{user.name}}</h6>
+
+<h4><strong>Email</strong>:</h4> <h6>{{user.email}}</h6>
+</div> 
 </div>
 
-<h1>Your Account</h1>
-<span><strong>Profile Picture</strong>: 
+<a class="a-colors center-h" href="/favourites-display">My Favourite Artists</a><br>
+{{#if user.status}}
+<a class="a-colors center-h" href="/favourites-add">Add Favourite Band</a>
+<br>
 
-<img src="{{user.profilePicture}}" alt="" style="width: 200px;">
+<div class="flex-column btns">
 
-</span>
-<br />
-<span><strong>Name</strong>: {{user.name}}</span>
-<br />
-<span><strong>Email</strong>: {{user.email}}</span>
-<br />
-{{!-- <span><strong>Type of User</strong>: {{user.userType}}</span>
-<br /> --}}
-
-
-<span><strong>Bands Being Tracked</strong>: 
-
-{{#each user.trackBands}}
-  <a href="/artist-search?term={{this}}">{{this}}</a>
-{{/each}}
-
-</span><br>
-
-
-
-<a href="/favourites-creation">Add Favourite Band</a><br>
-<a href="/favourites-display">My Favourite Artists</a>
-</br>
-<a href="/edit">Edit Profile</a>
-
+<a class="orange-bt"href="/edit">Edit Profile</a>
 <form method="POST" action="/delete">
-  <button>Delete User</button>
+  <button class="orange-bt delete">Delete User</button>
 </form>
+</div>
+</div>
+
+{{/if}}
+

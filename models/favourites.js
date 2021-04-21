@@ -7,13 +7,10 @@ const favouritesSchema = new mongoose.Schema(
     creator: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
+      unique: true,
       required: true
     },
-    artistName: {
-      type: String,
-      required: true,
-      unique: true
-    }
+    artistName: [{ type: String, trim: true }]
   },
   {
     timestamps: true

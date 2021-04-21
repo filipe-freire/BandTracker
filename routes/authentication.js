@@ -35,22 +35,28 @@ const generateRandomToken = length => {
 };
 
 // Routers
-router.get('/sign-up', (req, res, next) => {
+router.get('/sign-up', (req, res) => {
   res.render('sign-up');
 });
 
 router.post('/sign-up', upload.single('profilePicture'), (req, res, next) => {
-  const { name, email, password, /*userType,*/ trackBands } = req.body;
+  const { name, email, password } = req.body;
   const profilePicture = req.file.path;
 
-  const trackBandsArr = trackBands.split(',');
+  //const trackBandsArr = trackBands.split(',');
 
   // Confirmation Email
   const confirmationToken = generateRandomToken(10);
-  const confirmationUrl = `http://localhost:3000/authentication/confirm-email?token=${confirmationToken}`;
+  const confirmationUrl = `https://bandtrackerapp.herokuapp.com/authentication/confirm-email?token=${confirmationToken}`; //`http://localhost:3000/authentication/confirm-email?token=${confirmationToken}`;
 
-  bcryptjs
-    .hash(password, 10)
+  User.findOne({ email: email })
+    .then(existingUser => {
+      if (existingUser) {
+        return Promise.reject(new Error('User already owns an account'));
+      } else {
+        return bcryptjs.hash(password, 10);
+      }
+    })
     .then(hash => {
       return User.create({
         name,
@@ -58,46 +64,40 @@ router.post('/sign-up', upload.single('profilePicture'), (req, res, next) => {
         passwordHash: hash,
         // userType,  USERTYPE CREATION IF NEEDED
         profilePicture,
-        trackBands: trackBandsArr,
+        // trackBands: trackBandsArr,
         confirmationToken: confirmationToken
       });
     })
     .then(user => {
       req.session.user = user._id;
 
-      transport
-        .sendMail({
-          from: process.env.NODEMAILER_EMAIL,
-          to: user.email,
-          subject: 'Click the link to activate your account!',
-          html: `<html>  
+      return transport.sendMail({
+        from: process.env.NODEMAILER_EMAIL,
+        to: user.email,
+        subject: 'Click the link to activate your account!',
+        html: `<html>  
           <head>
           <title>Welcome to BandTracker</title>  
           <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">  
           </head>  
           <style>  
-          body  {     font-family:arial;     font-size: 9pt;   }  
-          .email-nameprice  {    font-family:arial;    font-size: 9pt;   }
+          body  {font-family:arial;font-size: 9pt; background-color: orange }  
            </style>
           <body bgcolor="#FFFFFF" text="#000000">  
           <h1> Welcome to BandTracker, ${user.name}! </h1>
           <h2> You are one click away from awesomeness! </h2>
-          <p>Thank you for creating an account with BandTracker <p>
-          <p>Creating an account allows you to follow your favorite bands and check their tour dates also check all the concerts happening around you.</p>    
+          <p>Thank you for creating an account with BandTracker. <p>
+          <p>Creating an account allows you to follow your favorite bands and check their tour dates whenever you sign in!</p>    
           <p>To confirm your email address, click here: </p>
-          <a href="${confirmationUrl}"> Confirm email </a>
-          <p> And become the most informed fan! </p>
+          <a href="${confirmationUrl}" target="_blank"> Confirm email </a>
+          <p> Now you can become the most informed fan! </p>
           </body>
-          </html>
-                `
-        })
-        .then(result => {
-          console.log('Email was sent ', result);
-        })
-        .catch(error => {
-          console.log('There was an error sending the email', error);
-        });
-      res.redirect('/');
+          </html>`
+      });
+    })
+    .then(result => {
+      console.log('Email was sent ', result);
+      res.redirect('/favourites-creation');
     })
     .catch(error => {
       next(error);
@@ -106,16 +106,19 @@ router.post('/sign-up', upload.single('profilePicture'), (req, res, next) => {
 
 router.get('/confirm-email', (req, res, next) => {
   const token = req.query.token;
-  console.log(token);
-  User.findOneAndUpdate({ confirmationToken: token }, { status: 'active' }, { new: true })
+  //console.log(token);
+  User.findOneAndUpdate({ confirmationToken: token }, { status: 1 }, { new: true })
     .then(user => {
-      console.log(user);
+      //console.log(user);
       res.render('confirmation', { user }); //render confirmation page
     })
-    .catch(error => console.log(error));
+    .catch(error => {
+      console.log(error);
+      next(error);
+    });
 });
 
-router.get('/sign-in', (req, res, next) => {
+router.get('/sign-in', (req, res) => {
   res.render('sign-in');
 });
 
@@ -144,7 +147,7 @@ router.post('/sign-in', (req, res, next) => {
     });
 });
 
-router.post('/sign-out', (req, res, next) => {
+router.post('/sign-out', (req, res) => {
   req.session.destroy();
   res.redirect('/');
 });

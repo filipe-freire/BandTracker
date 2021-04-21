@@ -1,6 +1,15 @@
-{{#each searchResults }}
+<div class="container">
 
-<h1> {{ title }} </h1>
-<h2> {{ start }} </h2>
+{{#if searchResults.length }}
 
-{{/each }}
+<br>
+<img src="{{ searchResults.0.artist.image_url }}" alt=" {{ searchResults.0.artist.name }}" style="width: 300px;">
+<h1> <a href="/artist-search?term={{ searchResults.0.artist.name }} ">{{ searchResults.0.artist.name }}</a> </h1>
+<h2><span class="bold">Next Concert:</span> {{ searchResults.0.venue.location }} | {{ date searchResults.0.datetime "DD/MM/YYYY,HH:mm"}}</h2>
+
+{{else }}
+
+<h1>No future concerts found</h1>
+
+{{/if }}
+</div>

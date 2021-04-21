@@ -1,0 +1,22 @@
+.bold {
+  font-weight: bold;
+}
+
+// center component
+.center-h {
+  margin: 1.5em auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+// line-height: increased
+.lh-1 {
+  line-height: 1.6em;
+}
+
+// font-weight: normal
+.fw-regular {
+  font-weight: normal;
+}
