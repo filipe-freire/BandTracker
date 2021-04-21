@@ -1,22 +1,22 @@
-'use strict';
+"use strict";
 
-const { Router } = require('express');
+const { Router } = require("express");
 const router = new Router();
 
-const routeGuard = require('./../middleware/route-guard');
-const routeGuardDefault = require('./../middleware/route-guard-default');
+const routeGuard = require("./../middleware/route-guard");
+const routeGuardDefault = require("./../middleware/route-guard-default");
 
 // Install/Require additional dependencies
-const axios = require('axios');
+const axios = require("axios");
 
-const Favourites = require('./../models/favourites');
-const User = require('./../models/user');
+const Favourites = require("./../models/favourites");
+const User = require("./../models/user");
 
 const bandsInTownKey = process.env.BANDSINTOWN_KEY;
 
-const multer = require('multer');
-const cloudinary = require('cloudinary');
-const multerStorageCloudinary = require('multer-storage-cloudinary');
+const multer = require("multer");
+const cloudinary = require("cloudinary");
+const multerStorageCloudinary = require("multer-storage-cloudinary");
 
 const storage = new multerStorageCloudinary.CloudinaryStorage({
   cloudinary: cloudinary.v2
@@ -53,7 +53,7 @@ const upload = multer({ storage });
 
 // ----------- END OF TESTING BANDSINTOWN API -------------
 
-router.get('/show-events', (req, res, next) => {
+router.get("/show-events", (req, res, next) => {
   const term = req.query.term;
 
   const normalizedTerm = encodeURIComponent(term);
@@ -65,15 +65,21 @@ router.get('/show-events', (req, res, next) => {
       )
       .then(results => {
         // console.log(results.data.length === 0);
-        res.render('show-events', { searchResults: results.data });
+        res.render("show-events", { searchResults: results.data });
+      })
+      .catch(() => {
+        res.render("error", {
+          message:
+            "Unfortunately the API responsible for finding events is not available. Sorry for any inconvenience!"
+        });
       });
   } else {
-    next(new Error('Invalid Search!'));
+    next(new Error("Invalid Search!"));
   }
 });
 
 // NORMAL APP ROUTING
-router.get('/', async (req, res, next) => {
+router.get("/", async (req, res, next) => {
   const artistTours = {};
   const user = req.user;
 
@@ -94,21 +100,21 @@ router.get('/', async (req, res, next) => {
         artistTours[artist] = tours.data;
       }
     }
-    res.render('index', { title: 'BandTracker', shows: artistTours });
+    res.render("index", { title: "BandTracker", shows: artistTours });
   } catch (error) {
     next(error);
   }
 });
 
-router.get('/private', routeGuardDefault, (req, res) => {
-  res.render('private');
+router.get("/private", routeGuardDefault, (req, res) => {
+  res.render("private");
 });
 
-router.get('/edit', routeGuard, (req, res) => {
-  res.render('edit');
+router.get("/edit", routeGuard, (req, res) => {
+  res.render("edit");
 });
 
-router.post('/edit', upload.single('profilePicture'), routeGuard, (req, res, next) => {
+router.post("/edit", upload.single("profilePicture"), routeGuard, (req, res, next) => {
   const id = req.session.user;
   const { name, email } = req.body;
 
@@ -121,19 +127,19 @@ router.post('/edit', upload.single('profilePicture'), routeGuard, (req, res, nex
 
   User.findByIdAndUpdate(id, data)
     .then(() => {
-      res.redirect('/private');
+      res.redirect("/private");
     })
     .catch(error => {
       next(error);
     });
 });
 
-router.post('/delete', routeGuard, (req, res, next) => {
+router.post("/delete", routeGuard, (req, res, next) => {
   const id = req.session.user;
 
   User.findOneAndDelete({ _id: id })
     .then(() => {
-      res.redirect('/');
+      res.redirect("/");
     })
     .catch(error => {
       next(error);
